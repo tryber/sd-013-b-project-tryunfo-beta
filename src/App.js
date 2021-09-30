@@ -17,6 +17,11 @@ class App extends React.Component {
       isSaveButtonDisabled: false,
     };
     this.onInputChange = this.onInputChange.bind(this);
+    this.onSaveButtonClick = this.onSaveButtonClick.bind(this);
+  }
+
+  onSaveButtonClick() {
+    console.log('dsdf');
   }
 
   onInputChange({ target }) {
@@ -34,7 +39,11 @@ class App extends React.Component {
     return (
       <div>
         <h1>Tryunfo</h1>
-        <Form { ...defaultProps } onInputChange={ this.onInputChange } />
+        <Form
+          { ...defaultProps }
+          onInputChange={ this.onInputChange }
+          onSaveButtonClick={ this.onSaveButtonClick }
+        />
       </div>
     );
   }

@@ -10,10 +10,15 @@ class Inputs extends Component {
     };
   }
 
+  onSaveButtonClick() {
+    console.log('sbadbas');
+  }
+
   render() {
-    const { onInputChange } = this.props;
+    const { onInputChange, onSaveButtonClick } = this.props;
     const { stateForm: { cardName, cardDescription,
-      cardAttr1, cardAttr2, cardAttr3, cardRare, cardTrunfo, cardImage } } = this.state;
+      cardAttr1, cardAttr2, cardAttr3,
+      cardRare, cardTrunfo, cardImage, isSaveButtonDisabled } } = this.state;
     const rareOptions = ['normal', 'raro', 'muito raro'];
     return (
       <form className="formcard">
@@ -95,13 +100,15 @@ class Inputs extends Component {
             data-testid="trunfo-input"
             name="cardTrunfo"
             onChange={ onInputChange }
-            value={ cardTrunfo }
+            defaultChecked={ cardTrunfo }
           />
         </label>
         <button
           id="salvar"
           type="button"
           data-testid="save-button"
+          disabled={ isSaveButtonDisabled }
+          onClick={ onSaveButtonClick() }
         >
           Salvar
         </button>
@@ -112,6 +119,7 @@ class Inputs extends Component {
 
 Inputs.propTypes = {
   onInputChange: PropTypes.func.isRequired,
+  onSaveButtonClick: PropTypes.func.isRequired,
   props: PropTypes.shape({}).isRequired,
 };
 

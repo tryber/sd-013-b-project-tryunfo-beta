@@ -9,10 +9,14 @@ class Form extends Component {
   }
 
   render() {
-    const { onInputChange } = this.props;
+    const { onInputChange, onSaveButtonClick } = this.props;
     return (
       <div>
-        <Inputs onInputChange={ onInputChange } props={ this.props } />
+        <Inputs
+          onInputChange={ onInputChange }
+          props={ this.props }
+          onSaveButtonClick={ onSaveButtonClick }
+        />
       </div>
     );
   }
@@ -20,6 +24,7 @@ class Form extends Component {
 
 Form.propTypes = {
   onInputChange: PropTypes.func.isRequired,
+  onSaveButtonClick: PropTypes.func.isRequired,
 };
 
 export default Form;
