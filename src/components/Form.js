@@ -7,16 +7,7 @@ import TextArea from './TextArea';
 export default class Form extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      // name: '',
-      // description: '',
-      // attr1: 0,
-      // attr2: 0,
-      // attr3: 0,
-      // image: '',
-      // rare: '',
-      // trunfo: false,
-    };
+    this.state = {};
     this.handleChange = this.handleChange.bind(this);
   }
 
@@ -40,13 +31,11 @@ export default class Form extends React.Component {
         cardImage,
         cardRare,
         cardTrunfo,
-        hasTrunfo,
+        // hasTrunfo,
         isSaveButtonDisabled,
         onInputChange,
         onSaveButtonClick,
       } = this.props;
-    // const { name, description,
-    //   attr1, attr2, attr3, image, trunfo, rare } = this.state;
     return (
       <div>
         <Input
@@ -131,7 +120,7 @@ Form.propTypes = {
   cardName: PropTypes.string.isRequired,
   cardRare: PropTypes.string.isRequired,
   cardTrunfo: PropTypes.bool.isRequired,
-  hasTrunfo: PropTypes.bool.isRequired,
+  // hasTrunfo: PropTypes.bool.isRequired,
   isSaveButtonDisabled: PropTypes.bool.isRequired,
   onInputChange: PropTypes.func.isRequired,
   onSaveButtonClick: PropTypes.func.isRequired,
