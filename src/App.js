@@ -20,7 +20,7 @@ class App extends React.Component {
     this.state = {
       ...INITIAL_CARD_STATE,
       cardTrunfo: false,
-      // hasTrunfo: 'false',
+      hasTrunfo: false,
       isSaveButtonDisabled: true,
       cards: [],
     };
@@ -43,6 +43,7 @@ class App extends React.Component {
     this.setState((prevState) => ({
       cards: [...prevState.cards, newCard],
       ...INITIAL_CARD_STATE,
+      hasTrunfo: !prevState.hasTrunfo && prevState.cardTrunfo,
     }));
   }
 
@@ -65,6 +66,7 @@ class App extends React.Component {
       cardRare,
     } = this.state;
     const { isEmpty, range0to90, maximumPoints } = this;
+
     const haveToDisable = (
       isEmpty(cardName)
       && isEmpty(cardDescription)
@@ -75,6 +77,7 @@ class App extends React.Component {
       && range0to90(cardAttr3)
       && maximumPoints(cardAttr1, cardAttr2, cardAttr3)
     );
+
     this.setState({ isSaveButtonDisabled: !haveToDisable });
   }
 
@@ -89,6 +92,7 @@ class App extends React.Component {
       cardRare,
       cardTrunfo,
       isSaveButtonDisabled,
+      hasTrunfo,
     } = this.state;
     return (
       <div>
@@ -104,6 +108,7 @@ class App extends React.Component {
           cardImage={ cardImage }
           cardRare={ cardRare }
           cardTrunfo={ cardTrunfo }
+          hasTrunfo={ hasTrunfo }
           isSaveButtonDisabled={ isSaveButtonDisabled }
         />
         <Card
