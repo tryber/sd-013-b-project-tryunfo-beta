@@ -18,7 +18,7 @@ const defaultProps = {
   onSaveButtonClick: () => {},
 }
 
-describe("2 - Adicione as props necessárias ao componente de formulário", () => {
+describe.only("2 - Adicione as props necessárias ao componente de formulário", () => {
   it("Será validado se o campo de nome recebe o valor da prop `cardName` e se a callback `onInputChange` é chamada quando o campo sofre alguma alteração", () => {
     const onInputChange =  jest.fn();
     render(<Form {...defaultProps} onInputChange={onInputChange} />);
