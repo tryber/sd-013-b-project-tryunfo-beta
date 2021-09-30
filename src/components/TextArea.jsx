@@ -9,7 +9,7 @@ class TextArea extends Component {
       <label htmlFor={ id }>
         {text}
         <textarea
-          onChange={ ({ target }) => setValue(target.value) }
+          onChange={ ({ target }) => setValue(target) }
           name={ name }
           id={ id }
           data-testid={ dataTestId }

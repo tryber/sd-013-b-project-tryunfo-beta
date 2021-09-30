@@ -13,7 +13,7 @@ class Select extends Component {
       <label htmlFor={ id }>
         {text}
         <select
-          onChange={ ({ target }) => setValue(target.value) }
+          onChange={ ({ target }) => setValue(target) }
           name={ name }
           id={ id }
           data-testid={ dataTestId }

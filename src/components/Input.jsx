@@ -10,13 +10,14 @@ class Input extends Component {
         {text}
         <input
           type={ type }
-          onChange={ ({ target }) => setValue(target.value) }
+          onChange={ ({ target }) => setValue(target) }
           name={ name }
           id={ id }
           data-testid={ dataTestId }
           placeholder={ placeHolder }
           min={ min }
           value={ value }
+          checked={ type === 'checkbox' && value }
         />
       </label>
     );
