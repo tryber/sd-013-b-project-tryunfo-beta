@@ -11,6 +11,7 @@ function Select({ name, onChange, option, dataid, label }) {
         onChange={ onChange }
         data-testid={ dataid }
         name={ name }
+        value="raro"
       >
         { option.map((item, index) => (
           <option key={ index } value={ item }>
