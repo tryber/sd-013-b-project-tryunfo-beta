@@ -22,7 +22,6 @@ class App extends React.Component {
   }
 
   onSaveButtonClick() {
-    console.log('dsdf');
   }
 
   onInputChange({ target }) {
