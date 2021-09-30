@@ -94,8 +94,8 @@ class Inputs extends Component {
         <button
           id="salvar"
           type="button"
-          data-testid="save-button"
           disabled={ isSaveButtonDisabled }
+          data-testid="save-button"
           onClick={ onSaveButtonClick() }
         >
           Salvar
