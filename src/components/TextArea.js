@@ -12,7 +12,7 @@ function TextArea({ value, onChange }) {
         cols="40"
         value={ value }
         onChange={ onChange }
-        name="description"
+        name="cardDescription"
         data-testid="description-input"
       />
     </label>

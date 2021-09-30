@@ -8,15 +8,6 @@ export default class Form extends React.Component {
   constructor(props) {
     super(props);
     this.state = {};
-    this.handleChange = this.handleChange.bind(this);
-  }
-
-  handleChange({ target }) {
-    const value = target.type === 'checkbox' ? target.checked : target.value;
-    const { name } = target;
-    this.setState({
-      [name]: value,
-    });
   }
 
   render() {
@@ -40,7 +31,7 @@ export default class Form extends React.Component {
       <div>
         <Input
           label="Nome:"
-          name="name"
+          name="cardName"
           type="text"
           dataid="name-input"
           value={ cardName }
@@ -54,7 +45,7 @@ export default class Form extends React.Component {
           label="Attr1:"
           type="number"
           onChange={ onInputChange }
-          name="attr1"
+          name="cardAttr1"
           value={ cardAttr1 }
           dataid="attr1-input"
         />
@@ -62,7 +53,7 @@ export default class Form extends React.Component {
           label="Attr2:"
           type="number"
           onChange={ onInputChange }
-          name="attr2"
+          name="cardAttr2"
           value={ cardAttr2 }
           dataid="attr2-input"
         />
@@ -71,7 +62,7 @@ export default class Form extends React.Component {
           type="number"
           value={ cardAttr3 }
           onChange={ onInputChange }
-          name="attr3"
+          name="cardAttr3"
           dataid="attr3-input"
         />
         <Input
@@ -79,12 +70,12 @@ export default class Form extends React.Component {
           value={ cardImage }
           onChange={ onInputChange }
           type="text"
-          name="image"
+          name="cardImage"
           dataid="image-input"
         />
         <Select
           label="Raridade:"
-          name="rare"
+          name="cardRare"
           value={ cardRare }
           option={ options }
           dataid="rare-input"
@@ -96,7 +87,7 @@ export default class Form extends React.Component {
           type="checkbox"
           onChange={ onInputChange }
           dataid="trunfo-input"
-          name="trunfo"
+          name="cardTrunfo"
         />
         <button
           type="button"
