@@ -3,7 +3,7 @@ import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event'
 import App from '../App';
 
-describe.only("4 - Crie o preview da carta que está sendo criada pelo formulário", () => {
+describe("4 - Crie o preview da carta que está sendo criada pelo formulário", () => {
   it("Será validado se é renderizado no preview da carta o valor digitado no input Nome do formulário", () => {
     render(<App />);
     const nameInput = screen.getByTestId(/name-input/i);
