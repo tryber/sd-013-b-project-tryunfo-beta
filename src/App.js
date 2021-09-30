@@ -18,7 +18,7 @@ class App extends React.Component {
       cardRare: '',
       cardTrunfo: false,
       hasTrunfo: false,
-      isSaveButtonDisabled: false,
+      isSaveButtonDisabled: true,
       cards: [],
     };
     this.onInputChange = this.onInputChange.bind(this);
