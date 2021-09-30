@@ -88,7 +88,7 @@ class Inputs extends Component {
             data-testid="trunfo-input"
             name="cardTrunfo"
             onChange={ onInputChange }
-            defaultChecked={ cardTrunfo }
+            checked={ cardTrunfo }
           />
         </label>
         <button
