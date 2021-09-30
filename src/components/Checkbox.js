@@ -23,7 +23,7 @@ class Checkbox extends Component {
 Checkbox.propTypes = {
   text: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
-  value: PropTypes.bool.isRequired,
+  value: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired,
   dataTestid: PropTypes.string.isRequired,
 };

@@ -4,24 +4,29 @@ import { Form, Card } from './components';
 const MIN_ATTR = 0;
 const MAX_ATTR = 90;
 const MAX_POINTS = 210;
+const INITIAL_CARD_STATE = {
+  cardName: '',
+  cardDescription: '',
+  cardAttr1: 0,
+  cardAttr2: 0,
+  cardAttr3: 0,
+  cardImage: '',
+  cardRare: 'normal',
+};
 
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      cardName: '',
-      cardDescription: '',
-      cardAttr1: '',
-      cardAttr2: '',
-      cardAttr3: '',
-      cardImage: '',
-      cardRare: 'normal',
-      cardTrunfo: '',
+      ...INITIAL_CARD_STATE,
+      cardTrunfo: false,
       // hasTrunfo: 'false',
       isSaveButtonDisabled: true,
+      cards: [],
     };
 
     this.onInputChange = this.onInputChange.bind(this);
+    this.onSaveButtonClick = this.onSaveButtonClick.bind(this);
     this.validateInputs = this.validateInputs.bind(this);
   }
 
@@ -34,6 +39,11 @@ class App extends React.Component {
 
   onSaveButtonClick(e) {
     e.preventDefault();
+    const { isSaveButtonDisabled, cards, cardTrunfo, ...newCard } = this.state;
+    this.setState((prevState) => ({
+      cards: [...prevState.cards, newCard],
+      ...INITIAL_CARD_STATE,
+    }));
   }
 
   isEmpty = (input) => !!input;
