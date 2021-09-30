@@ -3,11 +3,12 @@ import React from 'react';
 
 // import { Container } from './styles';
 
-function Input({ label, name, dataid, type, onChange, value }) {
+function Input({ label, name, dataid, type, onChange, value, checked }) {
   return (
     <label htmlFor={ dataid }>
       { label }
       <input
+        checked={ checked }
         type={ type }
         name={ name }
         onChange={ onChange }
@@ -25,6 +26,7 @@ Input.propTypes = {
   onChange: PropTypes.func.isRequired,
   type: PropTypes.string.isRequired,
   value: PropTypes.string.isRequired,
+  checked: PropTypes.bool.isRequired,
 };
 
 export default Input;
