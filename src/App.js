@@ -46,7 +46,7 @@ class App extends React.Component {
           onInputChange={ this.onInputChange }
           onSaveButtonClick={ this.onSaveButtonClick }
         />
-        <Card defaultProps={ this.state } />
+        <Card { ...defaultProps } />
       </div>
     );
   }
