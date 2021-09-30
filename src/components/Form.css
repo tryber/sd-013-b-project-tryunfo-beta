@@ -1,0 +1,4 @@
+.formcard {
+  display: flex;
+  flex-direction: column;
+}
