@@ -4,6 +4,7 @@ import Input from '../Input';
 import TextArea from '../TextArea';
 import Select from '../Select';
 import Button from '../Button';
+import CheckBox from '../Checkbox';
 
 class Form extends React.Component {
   render() {
@@ -30,11 +31,13 @@ class Form extends React.Component {
           text="Nome: "
           value={ cardName }
           onChange={ onInputChange }
+          name="cardName"
         />
         <TextArea
           id="description-input"
           text="Descrição: "
           value={ cardDescription }
+          name="cardDescription"
           onChange={ onInputChange }
         />
         <Input
@@ -42,10 +45,12 @@ class Form extends React.Component {
           id="attr1-input"
           text="Primeiro atributo: "
           value={ cardAttr1 }
+          name="cardAttr1"
           onChange={ onInputChange }
         />
         <Input
           type="number"
+          name="cardAttr2"
           id="attr2-input"
           text="Segundo atributo: "
           value={ cardAttr2 }
@@ -53,6 +58,7 @@ class Form extends React.Component {
         />
         <Input
           type="number"
+          name="cardAttr3"
           id="attr3-input"
           text="Terceiro atributo: "
           value={ cardAttr3 }
@@ -60,6 +66,7 @@ class Form extends React.Component {
         />
         <Input
           type="text"
+          name="cardImage"
           id="image-input"
           text="Imagem: "
           value={ cardImage }
@@ -67,12 +74,14 @@ class Form extends React.Component {
         />
         <Select
           id="rare-input"
+          name="cardRare"
           text="Raridade: "
           value={ cardRare }
           onChange={ onInputChange }
         />
-        <Input
+        <CheckBox
           id="trunfo-input"
+          name="cardTrunfo"
           text="Super Trunfo"
           type="checkbox"
           checked={ cardTrunfo }

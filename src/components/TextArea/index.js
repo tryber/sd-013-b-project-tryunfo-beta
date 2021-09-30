@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 class TextArea extends Component {
   render() {
-    const { text, id, value, onChange } = this.props;
+    const { text, id, value, onChange, name } = this.props;
     return (
       <label htmlFor={ id }>
         { text }
@@ -11,6 +11,7 @@ class TextArea extends Component {
           id={ id }
           data-testid={ id }
           value={ value }
+          name={ name }
           onChange={ onChange }
         />
       </label>
@@ -22,6 +23,7 @@ TextArea.propTypes = {
   text: PropTypes.string,
   id: PropTypes.string,
   value: PropTypes.string,
+  name: PropTypes.string,
   onChange: PropTypes.func,
 }.isRequired;
 
