@@ -1,9 +1,21 @@
+.app {
+  display: flex;
+}
+
+
 .form-initial {
   align-items: center;
+  border-right: 3px solid black;
   display: flex;
   flex-direction: column;
+  font-size: 10px;
   height: 100vh;
   justify-content: space-around;
-  margin: auto;
-  width: 80%;
+  width: 50%;
+
+}
+
+.card {
+  height: 100vh;
+  width: 50%;
 }

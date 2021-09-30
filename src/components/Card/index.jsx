@@ -6,7 +6,8 @@ export default function Card(props) {
     cardImage, cardRare, cardTrunfo,
   } = props;
   return (
-    <div>
+    <div className="card">
+      <h1>Preview Card</h1>
       <p data-testid="name-card">{cardName}</p>
       <img src={ cardImage } alt={ cardName } data-testid="image-card" />
       <p data-testid="description-card">{cardDescription}</p>
