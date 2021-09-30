@@ -12,25 +12,79 @@ describe("5 - Faça a validação do botão de Salvar no formulário", () => {
 
   it("Será validado se o botão  `salvar` está desabilitado se o campo nome estiver vazio", () => {
     render(<App />);
+    const nameInput = screen.getByTestId(/name-input/i);
+    const descInput = screen.getByTestId(/description-input/i);
+    const imageInput = screen.getByTestId(/image-input/i);
+    const attr1Input = screen.getByTestId(/attr1-input/i);
+    const attr2Input = screen.getByTestId(/attr2-input/i);
+    const attr3Input = screen.getByTestId(/attr3-input/i);
+    const selectInput = screen.getByTestId(/rare-input/i);
     const saveBtn = screen.getByTestId("save-button");
-    userEvent.type(screen.getByTestId(/image-input/i), 'url-to-image');
-    userEvent.type(screen.getByTestId(/description-input/i), 'Lorem ipsum');
-    userEvent.type(screen.getByTestId(/attr1-input/i), '12');
-    userEvent.type(screen.getByTestId(/attr2-input/i), '34');
-    userEvent.type(screen.getByTestId(/attr3-input/i), '56');
-    userEvent.selectOptions(screen.getByTestId(/rare-input/i), 'raro');
+    
+    userEvent.type(nameInput, 'Carta 1 - Trybe');
+    userEvent.type(descInput, 'A melhor escola de programação para formação de pessoas incríveis e bonitas');
+    userEvent.type(imageInput, 'url-to-image');
+    userEvent.type(attr1Input, '90');
+    userEvent.type(attr2Input, '90');
+    userEvent.type(attr3Input, '30');
+    userEvent.selectOptions(selectInput, "raro");
+
+    expect(saveBtn).not.toBeDisabled();
+
+    userEvent.type(nameInput, '{selectall}{backspace}');
+    // expect(nameInput).toHaveTextContent('');
     expect(saveBtn).toBeDisabled();
   });
 
   it("Será validado se o botão  `salvar` está desabilitado se o campo imagem estiver vazio", () => {
     render(<App />);
+    const nameInput = screen.getByTestId(/name-input/i);
+    const descInput = screen.getByTestId(/description-input/i);
+    const imageInput = screen.getByTestId(/image-input/i);
+    const attr1Input = screen.getByTestId(/attr1-input/i);
+    const attr2Input = screen.getByTestId(/attr2-input/i);
+    const attr3Input = screen.getByTestId(/attr3-input/i);
+    const selectInput = screen.getByTestId(/rare-input/i);
     const saveBtn = screen.getByTestId("save-button");
-    userEvent.type(screen.getByTestId(/name-input/i), 'Lorem ipsum');
-    userEvent.type(screen.getByTestId(/image-input/i), 'url-to-image');
-    userEvent.type(screen.getByTestId(/attr1-input/i), '12');
-    userEvent.type(screen.getByTestId(/attr2-input/i), '34');
-    userEvent.type(screen.getByTestId(/attr3-input/i), '56');
-    userEvent.selectOptions(screen.getByTestId(/rare-input/i), 'raro');
+    
+    userEvent.type(nameInput, 'Carta 1 - Trybe');
+    userEvent.type(descInput, 'A melhor escola de programação para formação de pessoas incríveis e bonitas');
+    userEvent.type(imageInput, 'url-to-image');
+    userEvent.type(attr1Input, '90');
+    userEvent.type(attr2Input, '90');
+    userEvent.type(attr3Input, '30');
+    userEvent.selectOptions(selectInput, "raro");
+
+    expect(saveBtn).not.toBeDisabled();
+
+    userEvent.type(imageInput, '{selectall}{backspace}');
+    // expect(imageInput).toHaveTextContent('');
+    expect(saveBtn).toBeDisabled();
+  });
+
+  it("Será validado se o botão  `salvar` está desabilitado se o campo descrição estiver vazio", () => {
+    render(<App />);
+    const nameInput = screen.getByTestId(/name-input/i);
+    const descInput = screen.getByTestId(/description-input/i);
+    const imageInput = screen.getByTestId(/image-input/i);
+    const attr1Input = screen.getByTestId(/attr1-input/i);
+    const attr2Input = screen.getByTestId(/attr2-input/i);
+    const attr3Input = screen.getByTestId(/attr3-input/i);
+    const selectInput = screen.getByTestId(/rare-input/i);
+    const saveBtn = screen.getByTestId("save-button");
+    
+    userEvent.type(nameInput, 'Carta 1 - Trybe');
+    userEvent.type(descInput, 'A melhor escola de programação para formação de pessoas incríveis e bonitas');
+    userEvent.type(imageInput, 'url-to-image');
+    userEvent.type(attr1Input, '90');
+    userEvent.type(attr2Input, '90');
+    userEvent.type(attr3Input, '30');
+    userEvent.selectOptions(selectInput, "raro");
+
+    expect(saveBtn).not.toBeDisabled();
+
+    userEvent.type(descInput, '{selectall}{backspace}');
+    // expect(descInput).toHaveTextContent('');
     expect(saveBtn).toBeDisabled();
   });
 
