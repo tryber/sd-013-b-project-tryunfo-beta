@@ -3,33 +3,21 @@ import React, { Component } from 'react';
 import './Form.css';
 
 class Inputs extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      stateForm: props.props,
-    };
-  }
-
-  onSaveButtonClick() {
-    console.log('sbadbas');
-  }
-
   render() {
-    const { onInputChange, onSaveButtonClick } = this.props;
-    const { stateForm: { cardName, cardDescription,
-      cardAttr1, cardAttr2, cardAttr3,
-      cardRare, cardTrunfo, cardImage, isSaveButtonDisabled } } = this.state;
+    const { onInputChange, onSaveButtonClick, cardName, cardAttr1,
+      cardDescription, cardImage, cardRare, cardAttr2,
+      cardAttr3, cardTrunfo, isSaveButtonDisabled } = this.props;
     const rareOptions = ['normal', 'raro', 'muito raro'];
     return (
       <form className="formcard">
         <label htmlFor="inpCarta">
           Nome da carta
           <input
+            onChange={ onInputChange }
             value={ cardName }
             type="text"
             name="cardName"
             data-testid="name-input"
-            onChange={ onInputChange }
           />
         </label>
         <label htmlFor="descriptionCard">
@@ -118,9 +106,17 @@ class Inputs extends Component {
 }
 
 Inputs.propTypes = {
+  cardAttr1: PropTypes.string.isRequired,
+  cardAttr2: PropTypes.string.isRequired,
+  cardAttr3: PropTypes.string.isRequired,
+  cardDescription: PropTypes.string.isRequired,
+  cardImage: PropTypes.string.isRequired,
+  cardName: PropTypes.string.isRequired,
+  cardRare: PropTypes.string.isRequired,
+  cardTrunfo: PropTypes.bool.isRequired,
+  isSaveButtonDisabled: PropTypes.bool.isRequired,
   onInputChange: PropTypes.func.isRequired,
   onSaveButtonClick: PropTypes.func.isRequired,
-  props: PropTypes.shape({}).isRequired,
 };
 
 export default Inputs;

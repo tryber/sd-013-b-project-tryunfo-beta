@@ -3,21 +3,17 @@ import React, { Component } from 'react';
 import Inputs from './Inputs';
 
 class Form extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {};
-  }
-
   render() {
     const { onInputChange, onSaveButtonClick } = this.props;
+    const defaultProps = {
+      ...this.props,
+    };
     return (
-      <div>
-        <Inputs
-          onInputChange={ onInputChange }
-          props={ this.props }
-          onSaveButtonClick={ onSaveButtonClick }
-        />
-      </div>
+      <Inputs
+        onInputChange={ onInputChange }
+        onSaveButtonClick={ onSaveButtonClick }
+        { ...defaultProps }
+      />
     );
   }
 }
