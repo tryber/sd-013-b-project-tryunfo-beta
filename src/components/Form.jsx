@@ -6,32 +6,6 @@ import Select from './Select';
 import TextArea from './TextArea';
 
 class Form extends Component {
-  // constructor(props) {
-  //   super(props);
-  //   this.state = {
-  //     cardName: '',
-  //     cardDescription: '',
-  //     cardAttr1: '',
-  //     cardAttr2: '',
-  //     cardAttr3: '',
-  //     cardImage: '',
-  //     cardRare: '',
-  //     cardTrunfo: false,
-  //     hasTrunfo: false,
-  //     isSaveButtonDisabled: true,
-  //     onInputChange: () => {},
-  //   };
-  //   this.handelChange = this.handelChange.bind(this);
-  // }
-
-  // handelChange(target) {
-  //   const value = target.type === 'checkbox' ? target.checked : target.value;
-  //   const { name } = target;
-  //   this.setState({
-  //     [name]: value,
-  //   });
-  // }
-
   render() {
     // const { cardName, cardDescription, cardAttr1, cardAttr2,
     //   cardAttr3, cardImage, cardRare, cardTrunfo, hasTrunfo,
@@ -68,6 +42,7 @@ class Form extends Component {
           <div className="form-input">
             <Input
               name="cardAttr1"
+              max="90"
               type="number"
               text="Atributo 1"
               id="attr1-input"
@@ -79,6 +54,7 @@ class Form extends Component {
           <div className="form-input">
             <Input
               name="cardAttr2"
+              max="90"
               type="number"
               text="Atributo 2"
               id="attr2-input"
@@ -90,6 +66,7 @@ class Form extends Component {
           <div className="form-input">
             <Input
               name="cardAttr3"
+              max="90"
               type="number"
               text="Atributo 3"
               id="attr3-input"

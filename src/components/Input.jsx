@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 class Input extends Component {
   render() {
-    const { placeHolder, type, name, dataTestId, min,
+    const { placeHolder, type, name, dataTestId, min, max,
       value, id, text, setValue } = this.props;
     return (
       <label htmlFor={ id }>
@@ -16,6 +16,7 @@ class Input extends Component {
           data-testid={ dataTestId }
           placeholder={ placeHolder }
           min={ min }
+          max={ max }
           value={ value }
           checked={ type === 'checkbox' && value }
         />
@@ -27,6 +28,7 @@ class Input extends Component {
 Input.defaultProps = {
   dataTestId: '',
   min: 0,
+  max: undefined,
   text: '',
   placeHolder: '',
 };
@@ -34,6 +36,7 @@ Input.defaultProps = {
 Input.propTypes = {
   id: PropTypes.string,
   min: PropTypes.number,
+  max: PropTypes.number,
   name: PropTypes.string,
   placeHolder: PropTypes.string,
   setEmail: PropTypes.func,

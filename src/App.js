@@ -8,16 +8,63 @@ class App extends React.Component {
     this.state = {
       cardName: '',
       cardDescription: '',
-      cardAttr1: '',
-      cardAttr2: '',
-      cardAttr3: '',
+      cardAttr1: '0',
+      cardAttr2: '0',
+      cardAttr3: '0',
       cardImage: '',
       cardRare: '',
       cardTrunfo: false,
       // hasTrunfo: false,
       isSaveButtonDisabled: true,
+      isValid: false,
     };
     this.handelChange = this.handelChange.bind(this);
+    this.updateState = this.updateState.bind(this);
+    this.validationData = this.validationData.bind(this);
+    this.getIsNumberValid = this.getIsNumberValid.bind(this);
+  }
+
+  componentDidUpdate() {
+    const valid = this.validationData();
+    const { isSaveButtonDisabled, isValid } = this.state;
+    if (valid === isSaveButtonDisabled && !isValid) {
+      this.updateState('isSaveButtonDisabled', false);
+      this.updateState('isValid', true);
+    } else if (valid === isSaveButtonDisabled && isValid) {
+      this.updateState('isSaveButtonDisabled', true);
+      this.updateState('isValid', false);
+    }
+  }
+
+  getIsNumberValid(number) {
+    const value = parseInt(number, 10);
+    const MAX_VALUE = 90;
+    if (value >= 0 && value <= MAX_VALUE) {
+      return true;
+    }
+    return false;
+  }
+
+  validationData() {
+    const SUM_MAX = 210;
+    const { cardName, cardDescription,
+      cardImage, cardRare, cardAttr1, cardAttr2, cardAttr3 } = this.state;
+    if (cardName !== '' && cardDescription !== ''
+    && cardImage !== '' && cardRare !== ''
+    && this.getIsNumberValid(cardAttr1)
+    && this.getIsNumberValid(cardAttr2)
+    && this.getIsNumberValid(cardAttr3)
+    && (parseInt(cardAttr1, 10) + parseInt(cardAttr2, 10)
+    + parseInt(cardAttr3, 10)) <= SUM_MAX) {
+      return true;
+    }
+    return false;
+  }
+
+  updateState(field, value) {
+    this.setState({
+      [field]: value,
+    });
   }
 
   handelChange(target) {
