@@ -1,6 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Input from '../Input';
+import TextArea from '../TextArea';
+import Select from '../Select';
+import Button from '../Button';
 
 class Form extends React.Component {
   render() {
@@ -28,16 +31,12 @@ class Form extends React.Component {
           value={ cardName }
           onChange={ onInputChange }
         />
-        <label htmlFor="description-input">
-          Descrição:
-          { ' ' }
-          <textarea
-            id="description-input"
-            data-testid="description-input"
-            value={ cardDescription }
-            onChange={ onInputChange }
-          />
-        </label>
+        <TextArea
+          id="description-input"
+          text="Descrição: "
+          value={ cardDescription }
+          onChange={ onInputChange }
+        />
         <Input
           type="number"
           id="attr1-input"
@@ -66,21 +65,12 @@ class Form extends React.Component {
           value={ cardImage }
           onChange={ onInputChange }
         />
-        <label htmlFor="rare-input">
-          Raridade:
-          { ' ' }
-          <select
-            name="rare-input"
-            id="rare-input"
-            data-testid="rare-input"
-            value={ cardRare }
-            onChange={ onInputChange }
-          >
-            <option value="normal">Normal</option>
-            <option value="raro">Raro</option>
-            <option value="muito raro">Muito raro</option>
-          </select>
-        </label>
+        <Select
+          id="rare-input"
+          text="Raridade: "
+          value={ cardRare }
+          onChange={ onInputChange }
+        />
         <Input
           id="trunfo-input"
           text="Super Trunfo"
@@ -88,14 +78,12 @@ class Form extends React.Component {
           checked={ cardTrunfo }
           onChange={ onInputChange }
         />
-        <button
-          type="submit"
-          data-testid="save-button"
-          disabled={ isSaveButtonDisabled }
+        <Button
+          id="save-button"
           onClick={ onSaveButtonClick }
-        >
-          Salvar
-        </button>
+          disabled={ isSaveButtonDisabled }
+          text="Salvar"
+        />
       </form>
     );
   }
