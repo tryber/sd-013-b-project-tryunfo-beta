@@ -1,5 +1,5 @@
 import React from 'react';
-import { Form, Card } from './components';
+import { Form, Card, Input } from './components';
 
 const MIN_ATTR = 0;
 const MAX_ATTR = 90;
@@ -21,6 +21,7 @@ class App extends React.Component {
     this.state = {
       ...INITIAL_CARD_STATE,
       hasTrunfo: false,
+      nameFilter: '',
       isSaveButtonDisabled: true,
       cards: [],
     };
@@ -69,6 +70,11 @@ class App extends React.Component {
   maximumPoints = (attr1, attr2, attr3) => (
     Number(attr1) + Number(attr2) + Number(attr3) <= MAX_POINTS
   );
+
+  filterByName(card) {
+    const { nameFilter } = this.state;
+    return card.cardName.toLowerCase().includes(nameFilter.toLowerCase());
+  }
 
   validateInputs() {
     const {
@@ -127,6 +133,15 @@ class App extends React.Component {
           hasTrunfo={ hasTrunfo }
           isSaveButtonDisabled={ isSaveButtonDisabled }
         />
+        <hr />
+        <Input
+          type="text"
+          text="Filtrar por nome: "
+          name="nameFilter"
+          onChange={ this.onInputChange }
+          dataTestid="name-filter"
+        />
+        <hr />
         <Card
           cardName={ cardName }
           cardDescription={ cardDescription }
@@ -138,7 +153,7 @@ class App extends React.Component {
           cardTrunfo={ cardTrunfo }
         />
         {
-          cards.map((card) => (
+          cards.filter((card) => this.filterByName(card)).map((card) => (
             <div key={ card.cardName }>
               <Card
                 cardName={ card.cardName }

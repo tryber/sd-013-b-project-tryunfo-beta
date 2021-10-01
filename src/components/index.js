@@ -1,4 +1,5 @@
 import Form from './Form';
 import Card from './Card';
+import Input from './Input';
 
-export { Form, Card };
+export { Form, Card, Input };
