@@ -17,6 +17,7 @@ class App extends React.Component {
       cardAttr3: '',
       cardImage: '',
       cardRare: '',
+      id: 0,
       cardTrunfo: false,
       hasTrunfo: false,
       isSaveButtonDisabled: true,
@@ -28,11 +29,12 @@ class App extends React.Component {
     this.validationCardName = this.validationCardName.bind(this);
     this.validationCardDesc = this.validationCardDesc.bind(this);
     this.verifyTrunfo = this.verifyTrunfo.bind(this);
+    this.deleteCard = this.deleteCard.bind(this);
   }
 
   onSaveButtonClick() {
     const { cardName, cardDescription, cardAttr1,
-      cardAttr2, cardAttr3, cardImage, cardTrunfo, cardRare } = this.state;
+      cardAttr2, cardAttr3, cardImage, cardTrunfo, cardRare, id } = this.state;
     const newObj = {
       cardTrunfo,
       cardDescription,
@@ -42,9 +44,11 @@ class App extends React.Component {
       cardAttr3,
       cardImage,
       cardRare,
+      id,
     };
     this.setState((prevState) => ({
       cards: [...prevState.cards, newObj],
+      id: prevState.id + 1,
     }), () => this.verifyTrunfo());
     this.setState({ cardName: '',
       cardDescription: '',
@@ -71,6 +75,12 @@ class App extends React.Component {
   + Number(att2) + Number(att3) <= MAXPOINTS);
 
   verifyRange = (att) => (Number(att) >= 0 && Number(att) <= LIMIT)
+
+  deleteCard(id, cards) {
+    const indexOfcard = cards.indexOf((element) => element.id !== id);
+    const arraySliçado = cards.slice(indexOfcard, 0);
+    this.setState({ cards: arraySliçado, hasTrunfo: false });
+  }
 
   verifyTrunfo() {
     const { cards } = this.state;
@@ -128,7 +138,7 @@ class App extends React.Component {
           onSaveButtonClick={ this.onSaveButtonClick }
         />
         <Card { ...defaultProps } cards={ cards } />
-        <CardsDeck cards={ cards } />
+        <CardsDeck cards={ cards } delCards={ this.deleteCard } />
       </div>
     );
   }

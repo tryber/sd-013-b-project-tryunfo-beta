@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 
 class CardsDeck extends Component {
   render() {
-    const { cards } = this.props;
+    const { cards, delCards } = this.props;
     return (
       <div>
         {cards.length !== 0 && cards.map((element, index) => (
@@ -16,6 +16,13 @@ class CardsDeck extends Component {
             <p>{element.cardAttr3}</p>
             <p>{element.cardRare}</p>
             <p>{element.cardTrunfo}</p>
+            <button
+              type="button"
+              data-testid="delete-button"
+              onClick={ () => delCards(element.id, cards) }
+            >
+              Excluir
+            </button>
           </div>
         ))}
       </div>
