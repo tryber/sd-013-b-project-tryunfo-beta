@@ -1,6 +1,7 @@
 import React from 'react';
 import Card from './components/Card';
 import Form from './components/Form';
+import CardsDeck from './components/CardsDeck';
 
 const LIMIT = 90;
 const MAXPOINTS = 210;
@@ -127,6 +128,7 @@ class App extends React.Component {
           onSaveButtonClick={ this.onSaveButtonClick }
         />
         <Card { ...defaultProps } cards={ cards } />
+        <CardsDeck cards={ cards } />
       </div>
     );
   }
