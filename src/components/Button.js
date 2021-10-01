@@ -21,8 +21,8 @@ class Button extends Component {
 Button.propTypes = {
   testId: PropTypes.string.isRequired,
   text: PropTypes.string.isRequired,
-  disabled: PropTypes.string.isRequired,
-  onClick: PropTypes.string.isRequired,
+  disabled: PropTypes.bool.isRequired,
+  onClick: PropTypes.func.isRequired,
 };
 
 export default Button;
