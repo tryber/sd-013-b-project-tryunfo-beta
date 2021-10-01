@@ -17,11 +17,13 @@ class App extends React.Component {
       // hasTrunfo: false,
       isSaveButtonDisabled: true,
       isValid: false,
+      cards: [],
     };
     this.handelChange = this.handelChange.bind(this);
     this.updateState = this.updateState.bind(this);
     this.validationData = this.validationData.bind(this);
     this.getIsNumberValid = this.getIsNumberValid.bind(this);
+    this.saveCard = this.saveCard.bind(this);
   }
 
   componentDidUpdate() {
@@ -75,6 +77,34 @@ class App extends React.Component {
     });
   }
 
+  saveCard() {
+    const { cardName, cardDescription, cardAttr1, cardAttr2, cardAttr3,
+      cardImage, cardRare, cardTrunfo } = this.state;
+    const newCard = {
+      cardName,
+      cardDescription,
+      cardAttr1,
+      cardAttr2,
+      cardAttr3,
+      cardImage,
+      cardRare,
+      cardTrunfo,
+    };
+    this.setState((oldState) => ({
+      cards: [...oldState.cards, newCard],
+      cardName: '',
+      cardDescription: '',
+      cardAttr1: '0',
+      cardAttr2: '0',
+      cardAttr3: '0',
+      cardImage: '',
+      cardRare: 'normal',
+      cardTrunfo: false,
+      isSaveButtonDisabled: true,
+      isValid: false,
+    }));
+  }
+
   render() {
     const { cardName, cardDescription, cardAttr1, cardAttr2,
       cardAttr3, cardImage, cardRare, cardTrunfo,
@@ -93,7 +123,7 @@ class App extends React.Component {
           cardTrunfo={ cardTrunfo }
           isSaveButtonDisabled={ isSaveButtonDisabled }
           onInputChange={ this.handelChange }
-          onSaveButtonClick={ () => {} }
+          onSaveButtonClick={ this.saveCard }
         />
         <Card
           cardName={ cardName }
