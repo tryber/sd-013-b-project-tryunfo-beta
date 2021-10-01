@@ -41,8 +41,8 @@ button {
   border: 1px solid rgb(0, 0, 99);
   border-radius: 5px;
   color: white;
-  font-weight: 700;
   font-size: 1rem;
+  font-weight: 700;
   padding: 7px 0;
 }
 
@@ -51,14 +51,14 @@ button:disabled {
   border: 1px solid rgb(50, 50, 50);
   border-radius: 5px;
   color: white;
-  font-weight: 700;
   font-size: 1rem;
+  font-weight: 700;
   padding: 7px 0;
 }
 
 .add-form h1 {
-  font-size: 2rem;
   color: rgb(18, 41, 0);
+  font-size: 2rem;
 }
 
 .card-body {
@@ -75,9 +75,9 @@ button:disabled {
   border-radius: 7px;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
   height: 100%;
   padding: 15px;
+  justify-content: space-between;
 }
 
 .card-main h1 {
@@ -111,8 +111,8 @@ button:disabled {
 }
 
 .cards-header h1 {
-  text-align: center;
   color: wheat;
+  text-align: center;
 }
 
 .cards-main {
