@@ -5,11 +5,11 @@ import Card from './Card';
 
 class Cards extends Component {
   render() {
-    const { cards } = this.props;
+    const { cards, deleteCard } = this.props;
     return (
       <div>
         { cards.length !== 0
-          && cards.map((card) => (
+          && cards.map((card, index) => (
             <div key={ card.cardName }>
               <Card
                 cardName={ card.cardName }
@@ -20,6 +20,9 @@ class Cards extends Component {
                 cardImage={ card.cardImage }
                 cardRare={ card.cardRare }
                 cardTrunfo={ card.cardTrunfo }
+                isBtnDelete
+                deleteCard={ deleteCard }
+                index={ index }
               />
             </div>
           ))}
@@ -41,6 +44,7 @@ Cards.propTypes = {
       cardTrunfo: PropTypes.bool.isRequired,
     }),
   ).isRequired,
+  deleteCard: PropTypes.func.isRequired,
 };
 
 export default Cards;

@@ -25,6 +25,7 @@ class App extends React.Component {
     this.validationData = this.validationData.bind(this);
     this.getIsNumberValid = this.getIsNumberValid.bind(this);
     this.saveCard = this.saveCard.bind(this);
+    this.deleteCard = this.deleteCard.bind(this);
   }
 
   componentDidUpdate() {
@@ -108,6 +109,16 @@ class App extends React.Component {
     }));
   }
 
+  deleteCard(index) {
+    const { cards } = this.state;
+    const newCards = cards
+      .reduce((acc, current, indexCard) => (
+        (indexCard !== index) ? [...acc, current] : [...acc]), []);
+    this.setState({
+      cards: [...newCards],
+    });
+  }
+
   render() {
     const { cardName, cardDescription, cardAttr1, cardAttr2,
       cardAttr3, cardImage, cardRare, cardTrunfo, hasTrunfo,
@@ -141,6 +152,7 @@ class App extends React.Component {
         />
         <Cards
           cards={ cards }
+          deleteCard={ this.deleteCard }
         />
       </div>
     );

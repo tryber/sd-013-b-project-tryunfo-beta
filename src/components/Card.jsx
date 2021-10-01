@@ -2,9 +2,27 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 class Card extends Component {
+  constructor(props) {
+    super(props);
+    this.renderDeleteButton = this.renderDeleteButton.bind(this);
+  }
+
+  renderDeleteButton() {
+    const { deleteCard, index } = this.props;
+    return (
+      <button
+        data-testid="delete-button"
+        type="button"
+        onClick={ () => deleteCard(index) }
+      >
+        Excluir
+      </button>
+    );
+  }
+
   render() {
     const { cardName, cardDescription, cardAttr1, cardAttr2,
-      cardAttr3, cardImage, cardRare, cardTrunfo } = this.props;
+      cardAttr3, cardImage, cardRare, cardTrunfo, isBtnDelete } = this.props;
 
     return (
       <div>
@@ -29,10 +47,17 @@ class Card extends Component {
         </h3>
         <h3 data-testid="rare-card">{ cardRare }</h3>
         { cardTrunfo && <h2 data-testid="trunfo-card">Super Trunfo</h2> }
+        { isBtnDelete && this.renderDeleteButton() }
       </div>
     );
   }
 }
+
+Card.defaultProps = {
+  isBtnDelete: false,
+  deleteCard: () => {},
+  index: 0,
+};
 
 Card.propTypes = {
   cardName: PropTypes.string.isRequired,
@@ -43,6 +68,9 @@ Card.propTypes = {
   cardImage: PropTypes.string.isRequired,
   cardRare: PropTypes.string.isRequired,
   cardTrunfo: PropTypes.bool.isRequired,
+  isBtnDelete: PropTypes.bool,
+  deleteCard: PropTypes.func,
+  index: PropTypes.number,
 };
 
 export default Card;
