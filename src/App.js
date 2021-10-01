@@ -114,6 +114,7 @@ class App extends React.Component {
   }
 
   render() {
+    const { cards } = this.state;
     const defaultProps = {
       ...this.state,
     };
@@ -125,7 +126,7 @@ class App extends React.Component {
           onInputChange={ this.onInputChange }
           onSaveButtonClick={ this.onSaveButtonClick }
         />
-        <Card { ...defaultProps } />
+        <Card { ...defaultProps } cards={ cards } />
       </div>
     );
   }
