@@ -1,5 +1,6 @@
 import React from 'react';
 import Card from './components/Card';
+import Cards from './components/Cards';
 import Form from './components/Form';
 
 class App extends React.Component {
@@ -110,7 +111,7 @@ class App extends React.Component {
   render() {
     const { cardName, cardDescription, cardAttr1, cardAttr2,
       cardAttr3, cardImage, cardRare, cardTrunfo, hasTrunfo,
-      isSaveButtonDisabled } = this.state;
+      isSaveButtonDisabled, cards } = this.state;
 
     return (
       <div>
@@ -137,7 +138,9 @@ class App extends React.Component {
           cardImage={ cardImage }
           cardRare={ cardRare }
           cardTrunfo={ cardTrunfo }
-          isSaveButtonDisabled={ isSaveButtonDisabled }
+        />
+        <Cards
+          cards={ cards }
         />
       </div>
     );
