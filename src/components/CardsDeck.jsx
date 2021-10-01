@@ -32,10 +32,10 @@ class CardsDeck extends Component {
 }
 
 CardsDeck.propTypes = {
-  cards: PropTypes.shape({
+  cards: PropTypes.shape([{
     length: PropTypes.number,
     map: PropTypes.func,
-  }).isRequired,
+  }]).isRequired,
   delCards: PropTypes.func.isRequired,
   filters: PropTypes.func.isRequired,
 };

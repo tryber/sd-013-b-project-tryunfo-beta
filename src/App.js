@@ -19,6 +19,8 @@ class App extends React.Component {
       cardRare: '',
       rareFil: 'todas',
       id: 0,
+      filterTrunf: false,
+      filterDisabled: false,
       nameFilter: '',
       cardTrunfo: false,
       hasTrunfo: false,
@@ -33,6 +35,7 @@ class App extends React.Component {
     this.verifyTrunfo = this.verifyTrunfo.bind(this);
     this.deleteCard = this.deleteCard.bind(this);
     this.filters = this.filters.bind(this);
+    this.changeDisable = this.changeDisable.bind(this);
   }
 
   onSaveButtonClick() {
@@ -70,7 +73,7 @@ class App extends React.Component {
 
     this.setState({
       [name]: value,
-    });
+    }, () => this.changeDisable());
     this.verifyButton();
   }
 
@@ -83,6 +86,18 @@ class App extends React.Component {
     const indexOfcard = cards.indexOf((element) => element.id !== id);
     const arraySliçado = cards.slice(indexOfcard, 0);
     this.setState({ cards: arraySliçado, hasTrunfo: false });
+  }
+
+  changeDisable() {
+    const { filterTrunf } = this.state;
+    if (filterTrunf) {
+      this.setState((prevState) => ({
+        filterDisabled: !prevState.filterDisabled,
+      }));
+    }
+    if (!filterTrunf) {
+      this.setState({ filterDisabled: false });
+    }
   }
 
   verifyTrunfo() {
@@ -128,18 +143,21 @@ class App extends React.Component {
   }
 
   filters() {
-    const { nameFilter, rareFil, cards } = this.state;
+    const { nameFilter, rareFil, cards, filterTrunf } = this.state;
     if (nameFilter !== '') {
       return cards.filter((element) => element.cardName.includes(nameFilter));
     }
     if (rareFil !== 'todas') {
       return cards.filter((element) => element.cardRare === rareFil);
     }
+    if (filterTrunf === true) {
+      return cards.filter((element) => element.cardTrunfo === true);
+    }
     return cards;
   }
 
   render() {
-    const { cards } = this.state;
+    const { cards, filterDisabled } = this.state;
     const defaultProps = {
       ...this.state,
     };
@@ -158,15 +176,30 @@ class App extends React.Component {
             name="nameFilter"
             data-testid="name-filter"
             onChange={ this.onInputChange }
+            disabled={ filterDisabled }
           />
         </label>
         Filtrar por raridade:
-        <select name="rareFil" data-testid="rare-filter" onChange={ this.onInputChange }>
+        <select
+          disabled={ filterDisabled }
+          name="rareFil"
+          data-testid="rare-filter"
+          onChange={ this.onInputChange }
+        >
           <option>todas</option>
           <option>normal</option>
           <option>raro</option>
           <option>muito raro</option>
         </select>
+        <label htmlFor="super-trunfo-filter">
+          Filtrar por Super Trunfo
+          <input
+            type="checkbox"
+            onChange={ this.onInputChange }
+            name="filterTrunf"
+            data-testid="trunfo-filter"
+          />
+        </label>
         <Card { ...defaultProps } cards={ cards } />
         <CardsDeck
           cards={ cards }
