@@ -18,7 +18,7 @@ class App extends React.Component {
       cardRare: '',
       cardTrunfo: false,
       hasTrunfo: false,
-      isSaveButtonDisabled: true,
+      isSaveButtonDisabled: false,
       cards: [],
     };
     this.onInputChange = this.onInputChange.bind(this);
@@ -26,6 +26,7 @@ class App extends React.Component {
     this.verifyButton = this.verifyButton.bind(this);
     this.validationCardName = this.validationCardName.bind(this);
     this.validationCardDesc = this.validationCardDesc.bind(this);
+    this.verifyTrunfo = this.verifyTrunfo.bind(this);
   }
 
   onSaveButtonClick() {
@@ -43,14 +44,16 @@ class App extends React.Component {
     };
     this.setState((prevState) => ({
       cards: [...prevState.cards, newObj],
-    }));
+    }), () => this.verifyTrunfo());
     this.setState({ cardName: '',
       cardDescription: '',
       cardImage: '',
       cardRare: 'normal',
       cardAttr1: 0,
       cardAttr2: 0,
-      cardAttr3: 0 });
+      cardAttr3: 0,
+      cardTrunfo: false,
+    });
   }
 
   onInputChange({ target }) {
@@ -67,6 +70,13 @@ class App extends React.Component {
   + Number(att2) + Number(att3) <= MAXPOINTS);
 
   verifyRange = (att) => (Number(att) >= 0 && Number(att) <= LIMIT)
+
+  verifyTrunfo() {
+    const { cards } = this.state;
+    if (cards.some((element) => element.cardTrunfo === true)) {
+      this.setState({ hasTrunfo: true });
+    }
+  }
 
   verifyButton() {
     const {
