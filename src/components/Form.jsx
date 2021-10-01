@@ -45,8 +45,8 @@ class Form extends Component {
       onInputChange, onSaveButtonClick, hasTrunfo } = this.props;
 
     return (
-      <div>
-        Form
+      <div className="add-form">
+        <h1>Adicionar nova carta</h1>
         <form>
           <div className="form-input">
             <Input
@@ -133,8 +133,8 @@ class Form extends Component {
             <button
               type="button"
               data-testid="save-button"
-              disabled={ isSaveButtonDisabled }
               onClick={ onSaveButtonClick }
+              disabled={ isSaveButtonDisabled }
             >
               Salvar
             </button>

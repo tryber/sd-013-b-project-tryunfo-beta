@@ -1,7 +1,10 @@
 import React from 'react';
+import './App.css';
 import Card from './components/Card';
 import Cards from './components/Cards';
 import Form from './components/Form';
+import Input from './components/Input';
+import Select from './components/Select';
 
 class App extends React.Component {
   constructor(props) {
@@ -19,6 +22,9 @@ class App extends React.Component {
       isSaveButtonDisabled: true,
       isValid: false,
       cards: [],
+      cardNameFilter: '',
+      cardRareFilter: 'todas',
+      cardTrunfoFilter: false,
     };
     this.handelChange = this.handelChange.bind(this);
     this.updateState = this.updateState.bind(this);
@@ -26,6 +32,9 @@ class App extends React.Component {
     this.getIsNumberValid = this.getIsNumberValid.bind(this);
     this.saveCard = this.saveCard.bind(this);
     this.deleteCard = this.deleteCard.bind(this);
+    this.getCardsFiltered = this.getCardsFiltered.bind(this);
+    this.getCardsRareFilter = this.getCardsRareFilter.bind(this);
+    this.getCardsNameFilter = this.getCardsNameFilter.bind(this);
   }
 
   componentDidUpdate() {
@@ -38,6 +47,32 @@ class App extends React.Component {
       this.updateState('isSaveButtonDisabled', true);
       this.updateState('isValid', false);
     }
+  }
+
+  getCardsNameFilter(datas) {
+    const { cardNameFilter } = this.state;
+    return (
+      (cardNameFilter !== '')
+        ? datas.filter((data) => data.cardName.includes(cardNameFilter))
+        : datas
+    );
+  }
+
+  getCardsRareFilter() {
+    const { cards, cardRareFilter } = this.state;
+    return (
+      (cardRareFilter !== 'todas')
+        ? cards.filter((card) => card.cardRare === cardRareFilter)
+        : cards
+    );
+  }
+
+  getCardsFiltered() {
+    const { cards, cardTrunfoFilter } = this.state;
+    return ((cardTrunfoFilter)
+      ? cards.filter((card) => card.cardTrunfo === true)
+      : this.getCardsNameFilter(this.getCardsRareFilter())
+    );
   }
 
   getIsNumberValid(number) {
@@ -122,38 +157,77 @@ class App extends React.Component {
   render() {
     const { cardName, cardDescription, cardAttr1, cardAttr2,
       cardAttr3, cardImage, cardRare, cardTrunfo, hasTrunfo,
-      isSaveButtonDisabled, cards } = this.state;
+      isSaveButtonDisabled, cardNameFilter,
+      cardRareFilter, cardTrunfoFilter } = this.state;
 
     return (
-      <div>
-        <Form
-          cardName={ cardName }
-          cardDescription={ cardDescription }
-          cardAttr1={ cardAttr1 }
-          cardAttr2={ cardAttr2 }
-          cardAttr3={ cardAttr3 }
-          cardImage={ cardImage }
-          cardRare={ cardRare }
-          cardTrunfo={ cardTrunfo }
-          hasTrunfo={ hasTrunfo }
-          isSaveButtonDisabled={ isSaveButtonDisabled }
-          onInputChange={ this.handelChange }
-          onSaveButtonClick={ this.saveCard }
-        />
-        <Card
-          cardName={ cardName }
-          cardDescription={ cardDescription }
-          cardAttr1={ cardAttr1 }
-          cardAttr2={ cardAttr2 }
-          cardAttr3={ cardAttr3 }
-          cardImage={ cardImage }
-          cardRare={ cardRare }
-          cardTrunfo={ cardTrunfo }
-        />
-        <Cards
-          cards={ cards }
-          deleteCard={ this.deleteCard }
-        />
+      <div className="body">
+        <div className="main-sup">
+          <Form
+            cardName={ cardName }
+            cardDescription={ cardDescription }
+            cardAttr1={ cardAttr1 }
+            cardAttr2={ cardAttr2 }
+            cardAttr3={ cardAttr3 }
+            cardImage={ cardImage }
+            cardRare={ cardRare }
+            cardTrunfo={ cardTrunfo }
+            hasTrunfo={ hasTrunfo }
+            isSaveButtonDisabled={ isSaveButtonDisabled }
+            onInputChange={ this.handelChange }
+            onSaveButtonClick={ this.saveCard }
+          />
+          <Card
+            cardName={ cardName }
+            cardDescription={ cardDescription }
+            cardAttr1={ cardAttr1 }
+            cardAttr2={ cardAttr2 }
+            cardAttr3={ cardAttr3 }
+            cardImage={ cardImage }
+            cardRare={ cardRare }
+            cardTrunfo={ cardTrunfo }
+          />
+        </div>
+        <div className="cards-body">
+          <div className="cards-header">
+            <h1>Todas as Cartas</h1>
+            <div className="cards-header-filter">
+              <h3>Filtros de busca</h3>
+              <Input
+                placeHolder="Nome da carta"
+                name="cardNameFilter"
+                type="text"
+                id="name-filter"
+                dataTestId="name-filter"
+                value={ cardNameFilter }
+                setValue={ this.handelChange }
+              />
+              <Select
+                name="cardRareFilter"
+                options={ ['todas', 'normal', 'raro', 'muito raro'] }
+                text="Raridade"
+                id="rare-filter"
+                dataTestId="rare-filter"
+                value={ cardRareFilter }
+                setValue={ this.handelChange }
+              />
+              <Input
+                name="cardTrunfoFilter"
+                type="checkbox"
+                text="Super Trybe Trunfo"
+                id="trunfo-filter"
+                dataTestId="trunfo-filter"
+                value={ cardTrunfoFilter }
+                setValue={ this.handelChange }
+              />
+            </div>
+          </div>
+          { this.getCardsFiltered().length !== 0
+            && <Cards
+              cards={ this.getCardsFiltered() }
+              deleteCard={ this.deleteCard }
+            /> }
+        </div>
       </div>
     );
   }
