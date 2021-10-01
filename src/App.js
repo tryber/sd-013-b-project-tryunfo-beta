@@ -75,13 +75,13 @@ class App extends React.Component {
       cardImage: '',
       cardRare: '',
       cardTrunfo: false,
-      hasTrunfo: false,
+      hasTrunfo: true,
       isSaveButtonDisabled: true });
   }
 
   onSaveButtonClick = () => {
     const { state } = this;
-    this.setState((prevState) => ({ cardsCaves: [...prevState.cardsSaves, state] }));
+    this.setState((prevState) => ({ cardsSaves: [...prevState.cardsSaves, state] }));
     this.clearState();
   }
 

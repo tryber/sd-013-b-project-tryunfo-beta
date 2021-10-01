@@ -91,17 +91,23 @@ export default function Form(props) {
           }
         </select>
       </label>
-      <label htmlFor="trunfo">
-        Super Trybe Trunfo:
-        <input
-          type="checkbox"
-          name="cardTrunfo"
-          id="trunfo"
-          data-testid="trunfo-input"
-          checked={ cardTrunfo }
-          onChange={ onInputChange }
-        />
-      </label>
+      {
+        hasTrunfo ? (
+          <p>Você já tem um Super Trunfo em seu baralho</p>
+        ) : (
+          <label htmlFor="trunfo">
+            Super Trybe Trunfo:
+            <input
+              type="checkbox"
+              name="cardTrunfo"
+              id="trunfo"
+              data-testid="trunfo-input"
+              checked={ cardTrunfo }
+              onChange={ onInputChange }
+            />
+          </label>
+        )
+      }
       <button
         disabled={ isSaveButtonDisabled }
         type="button"
