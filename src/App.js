@@ -1,5 +1,6 @@
 import React from 'react';
 import { Form, Card, Input } from './components';
+import Checkbox from './components/Checkbox';
 
 const MIN_ATTR = 0;
 const MAX_ATTR = 90;
@@ -26,6 +27,7 @@ class App extends React.Component {
       filters: {
         nameFilter: '',
         rareFilter: RARITY_OPTIONS[0],
+        trunfoFilter: false,
       },
       isSaveButtonDisabled: true,
       cards: [],
@@ -60,11 +62,11 @@ class App extends React.Component {
   }
 
   onFilterChange({ target }) {
-    const { name, value } = target;
+    const { name, value, checked } = target;
     this.setState((prevState) => ({
       filters: {
         ...prevState.filters,
-        [name]: value,
+        [name]: name === 'trunfoFilter' ? checked : value,
       },
     }));
   }
@@ -88,6 +90,8 @@ class App extends React.Component {
   );
 
   filters(card) {
+    const { filters: { trunfoFilter } } = this.state;
+    if (trunfoFilter) return card.cardTrunfo;
     const filteredByName = this.filterByName(card);
     const filteredByRare = this.filterByRare(card);
     return filteredByName && filteredByRare;
@@ -169,6 +173,7 @@ class App extends React.Component {
           value={ filters.nameFilter }
           onChange={ this.onFilterChange }
           dataTestid="name-filter"
+          disabled={ filters.trunfoFilter }
         />
         <label htmlFor="cardRare">
           Filtrar por raridade:
@@ -178,12 +183,20 @@ class App extends React.Component {
             value={ filters.rareFilter }
             onChange={ this.onFilterChange }
             data-testid="rare-filter"
+            disabled={ filters.trunfoFilter }
           >
             { RARITY_OPTIONS.map((option) => (
               <option key={ option } value={ option }>{option}</option>
             )) }
           </select>
         </label>
+        <Checkbox
+          text="Super Trunfo"
+          name="trunfoFilter"
+          value={ filters.trunfoFilter }
+          onChange={ this.onFilterChange }
+          dataTestid="trunfo-filter"
+        />
         <hr />
         <Card
           cardName={ cardName }
