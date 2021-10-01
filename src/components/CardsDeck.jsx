@@ -8,25 +8,25 @@ class CardsDeck extends Component {
       <div>
         {cards.length !== 0 && cards
           .filter((element) => element.cardName.includes(inputFilterName))
-        .map((element, index) => (
-          <div key={ index }>
-            <p>{element.cardName}</p>
-            <p>{element.cardImage}</p>
-            <p>{element.cardDescription}</p>
-            <p>{element.cardAttr1}</p>
-            <p>{element.cardAttr2}</p>
-            <p>{element.cardAttr3}</p>
-            <p>{element.cardRare}</p>
-            <p>{element.cardTrunfo}</p>
-            <button
-              type="button"
-              data-testid="delete-button"
-              onClick={ () => delCards(element.id, cards) }
-            >
-              Excluir
-            </button>
-          </div>
-        ))}
+          .map((element, index) => (
+            <div key={ index }>
+              <p>{element.cardName}</p>
+              <p>{element.cardImage}</p>
+              <p>{element.cardDescription}</p>
+              <p>{element.cardAttr1}</p>
+              <p>{element.cardAttr2}</p>
+              <p>{element.cardAttr3}</p>
+              <p>{element.cardRare}</p>
+              <p>{element.cardTrunfo}</p>
+              <button
+                type="button"
+                data-testid="delete-button"
+                onClick={ () => delCards(element.id, cards) }
+              >
+                Excluir
+              </button>
+            </div>
+          ))}
       </div>
     );
   }
@@ -34,10 +34,12 @@ class CardsDeck extends Component {
 
 CardsDeck.propTypes = {
   cards: PropTypes.shape({
+    filter: PropTypes.func,
     length: PropTypes.number,
     map: PropTypes.func,
   }).isRequired,
   delCards: PropTypes.func.isRequired,
+  inputFilterName: PropTypes.string.isRequired,
 };
 
 export default CardsDeck;
