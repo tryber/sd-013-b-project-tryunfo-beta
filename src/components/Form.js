@@ -11,21 +11,8 @@ class Form extends Component {
   constructor(props) {
     super(props);
 
-    this.handleSubmit = this.handleSubmit.bind(this);
     this.renderAttributeInputs = this.renderAttributeInputs.bind(this);
     this.renderInputs = this.renderInputs.bind(this);
-  }
-
-  handleSubmit(e) {
-    e.preventDefault();
-  }
-
-  handleChange({ target }) {
-    const { type, value, checked, name } = target;
-
-    this.setState({
-      [name]: type === 'checkbox' ? checked : value,
-    });
   }
 
   renderAttributeInputs() {
