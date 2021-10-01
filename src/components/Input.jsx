@@ -1,11 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-function Input({ inputName, type, value, onChange, checked }) {
+function Input({ inputName, type, value, onChange, checked, className }) {
   return (
     <label htmlFor={ `${inputName}-input` }>
       {inputName.charAt(0).toUpperCase() + inputName.slice(1)}
       <input
+        className={ className }
         name={ inputName }
         type={ type }
         data-testid={ `${inputName}-input` }
@@ -23,6 +24,7 @@ Input.propTypes = {
   value: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired,
   checked: PropTypes.bool.isRequired,
+  className: PropTypes.string.isRequired,
 };
 
 export default Input;

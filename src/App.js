@@ -8,16 +8,18 @@ import './App.css';
 const appInitialState = {
   name: '',
   description: '',
-  attr1: '',
-  attr2: '',
-  attr3: '',
+  attr1: 0,
+  attr2: 0,
+  attr3: 0,
   image: '',
-  rare: '',
+  rare: 'normal',
   trunfo: false,
 };
 
 function App() {
   const [appState, setAppState] = useState(appInitialState);
+  const [cards, setCards] = useState([]);
+  const [hasTrunfo, setHasTrunfo] = useState(false);
 
   const handleChange = ({ target }) => {
     const { name } = target;
@@ -63,9 +65,30 @@ function App() {
     return false;
   };
 
+  const handleSave = () => {
+    setCards((prevState) => [...prevState, appState]);
+    setAppState(appInitialState);
+    if (appState.trunfo) {
+      setHasTrunfo(true);
+    }
+  };
+
   return (
     <main className="app-body">
-      <Form onInputChange={ handleChange } isSaveButtonDisabled={ handleButton } />
+      <Form
+        cardName={ appState.name }
+        cardDescription={ appState.description }
+        cardAttr1={ appState.attr1 }
+        cardAttr2={ appState.attr2 }
+        cardAttr3={ appState.attr3 }
+        cardImage={ appState.image }
+        cardRare={ appState.rare }
+        cardTrunfo={ appState.trunfo }
+        hasTrunfo={ hasTrunfo }
+        onInputChange={ handleChange }
+        isSaveButtonDisabled={ handleButton }
+        onSaveButtonClick={ handleSave }
+      />
       <Card
         cardName={ appState.name }
         cardDescription={ appState.description }
@@ -76,6 +99,9 @@ function App() {
         cardRare={ appState.rare }
         cardTrunfo={ appState.trunfo }
       />
+      <div>
+        <p>{cards[0]}</p>
+      </div>
     </main>
   );
 }
