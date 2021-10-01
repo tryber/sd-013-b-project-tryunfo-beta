@@ -14,20 +14,25 @@ function Form({
   cardImage,
   cardRare,
   cardTrunfo,
-  hasTrunfo,
+  // hasTrunfo,
   isSaveButtonDisabled,
   onInputChange,
   onSaveButtonClick,
 }) {
   return (
     <form>
-      <Input inputName="name" type="text" value={ cardName } onChange={ onInputChange } />
+      <Input
+        inputName="name"
+        type="text"
+        value={ cardName }
+        onChange={ onInputChange }
+      />
       <label htmlFor="description-input">
         Description
         <textarea
+          name="description"
           value={ cardDescription }
           onChange={ onInputChange }
-          name=""
           data-testid="description-input"
           cols="30"
           rows="10"
@@ -52,6 +57,7 @@ function Form({
         onChange={ onInputChange }
       />
       <Input
+        name="image"
         inputName="image"
         type="text"
         value={ cardImage }
@@ -59,7 +65,12 @@ function Form({
       />
       <label htmlFor="rare-input">
         Rare
-        <select data-testid="rare-input" value={ cardRare } onChange={ onInputChange }>
+        <select
+          data-testid="rare-input"
+          name="rare"
+          value={ cardRare }
+          onChange={ onInputChange }
+        >
           <option value="normal">normal</option>
           <option value="raro">raro</option>
           <option value="muito raro">muito raro</option>
@@ -92,7 +103,7 @@ Form.propTypes = {
   cardImage: PropTypes.string.isRequired,
   cardRare: PropTypes.string.isRequired,
   cardTrunfo: PropTypes.bool.isRequired,
-  hasTrunfo: PropTypes.bool.isRequired,
+  // hasTrunfo: PropTypes.bool.isRequired,
   isSaveButtonDisabled: PropTypes.bool.isRequired,
   onInputChange: PropTypes.func.isRequired,
   onSaveButtonClick: PropTypes.func.isRequired,

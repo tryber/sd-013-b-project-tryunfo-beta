@@ -6,6 +6,7 @@ function Input({ inputName, type, value, onChange, checked }) {
     <label htmlFor={ `${inputName}-input` }>
       {inputName.charAt(0).toUpperCase() + inputName.slice(1)}
       <input
+        name={ inputName }
         type={ type }
         data-testid={ `${inputName}-input` }
         value={ value }

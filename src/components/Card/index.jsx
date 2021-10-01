@@ -13,7 +13,7 @@ function Card({
 }) {
   return (
     <div>
-      <h1 data-testid="name-card">{cardName}</h1>
+      <h1 data-testid="name-card">{ cardName }</h1>
       <img data-testid="image-card" src={ cardImage } alt={ cardName } />
       <p data-testid="description-card">
         {cardDescription}
