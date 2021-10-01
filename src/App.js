@@ -3,6 +3,8 @@ import React, { useState } from 'react';
 import Card from './components/Card';
 import Form from './components/Form';
 
+import './App.css';
+
 const appInitialState = {
   name: '',
   description: '',
@@ -26,9 +28,44 @@ function App() {
     }));
   };
 
+  const checkTextInputs = () => {
+    const { name, description, image, rare } = appState;
+    if (name === '' || description === '' || image === '' || rare === '') {
+      return true;
+    }
+    return false;
+  };
+
+  const checkNumberInputs = () => {
+    const { attr1, attr2, attr3 } = appState;
+    const attr1ToNumber = Number(attr1);
+    const attr2ToNumber = Number(attr2);
+    const attr3ToNumber = Number(attr3);
+    const sumAttributes = attr1ToNumber + attr2ToNumber + attr3ToNumber;
+    const MAX_ATTR_SUM = 210;
+    const MAX_ATTR = 90;
+    const MIN_ATTR = 0;
+    if (sumAttributes > MAX_ATTR_SUM
+      || ((attr1ToNumber <= MIN_ATTR || attr1ToNumber > MAX_ATTR)
+        || (attr2ToNumber <= MIN_ATTR || attr2ToNumber > MAX_ATTR)
+        || (attr3ToNumber <= MIN_ATTR || attr3ToNumber > MAX_ATTR))) {
+      return true;
+    }
+    return false;
+  };
+
+  const handleButton = () => {
+    const textInputs = checkTextInputs();
+    const numberInputs = checkNumberInputs();
+    if (textInputs || numberInputs) {
+      return true;
+    }
+    return false;
+  };
+
   return (
-    <div>
-      <Form onInputChange={ handleChange } />
+    <main className="app-body">
+      <Form onInputChange={ handleChange } isSaveButtonDisabled={ handleButton } />
       <Card
         cardName={ appState.name }
         cardDescription={ appState.description }
@@ -39,7 +76,7 @@ function App() {
         cardRare={ appState.rare }
         cardTrunfo={ appState.trunfo }
       />
-    </div>
+    </main>
   );
 }
 

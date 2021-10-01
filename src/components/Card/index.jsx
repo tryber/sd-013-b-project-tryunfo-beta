@@ -22,7 +22,7 @@ function Card({
       <p data-testid="attr2-card">{cardAttr2}</p>
       <p data-testid="attr3-card">{cardAttr3}</p>
       <p data-testid="rare-card">{cardRare}</p>
-      {cardTrunfo && <h2 data-testid="trunfo-card">Super Trunfo</h2>}
+      {cardTrunfo && <h4 data-testid="trunfo-card">Super Trunfo</h4>}
     </div>
   );
 }
