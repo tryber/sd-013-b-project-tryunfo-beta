@@ -86,7 +86,7 @@ function App() {
         cardTrunfo={ appState.trunfo }
         hasTrunfo={ hasTrunfo }
         onInputChange={ handleChange }
-        isSaveButtonDisabled={ handleButton }
+        isSaveButtonDisabled={ handleButton() }
         onSaveButtonClick={ handleSave }
       />
       <Card
@@ -100,7 +100,7 @@ function App() {
         cardTrunfo={ appState.trunfo }
       />
       <div>
-        <p>{cards[0]}</p>
+        <p>{cards.length && cards[0].name}</p>
       </div>
     </main>
   );

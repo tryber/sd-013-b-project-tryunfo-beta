@@ -92,7 +92,7 @@ function Form({
       <button
         type="button"
         data-testid="save-button"
-        disabled={ isSaveButtonDisabled() }
+        disabled={ isSaveButtonDisabled }
         onClick={ onSaveButtonClick }
       >
         Salvar
