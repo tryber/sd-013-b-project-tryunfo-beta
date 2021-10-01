@@ -6,13 +6,43 @@ import Select from './Select';
 import TextArea from './TextArea';
 
 class Form extends Component {
+  constructor(props) {
+    super(props);
+    this.renderMensageValidateSuperTrunfo = this.renderMensageValidateSuperTrunfo
+      .bind(this);
+    this.renderSuperTrunfoInput = this.renderSuperTrunfoInput.bind(this);
+  }
+
+  renderMensageValidateSuperTrunfo() {
+    return (
+      <div className="form-input">
+        <p data-testid="trunfo-input">Você já tem um Super Trunfo em seu baralho</p>
+      </div>
+    );
+  }
+
+  renderSuperTrunfoInput() {
+    const { onInputChange, cardTrunfo } = this.props;
+    return (
+      <div className="form-input">
+        <Input
+          name="cardTrunfo"
+          type="checkbox"
+          text="Super Trybe Trunfo"
+          id="trunfo-input"
+          dataTestId="trunfo-input"
+          value={ cardTrunfo }
+          setValue={ onInputChange }
+          onClick={ () => this.validateSuperTrunfo() }
+        />
+      </div>
+    );
+  }
+
   render() {
-    // const { cardName, cardDescription, cardAttr1, cardAttr2,
-    //   cardAttr3, cardImage, cardRare, cardTrunfo, hasTrunfo,
-    //   isSaveButtonDisabled } = this.state;
     const { cardName, cardDescription, cardAttr1, cardAttr2,
-      cardAttr3, cardImage, cardRare, cardTrunfo,
-      isSaveButtonDisabled, onInputChange, onSaveButtonClick } = this.props;
+      cardAttr3, cardImage, cardRare, isSaveButtonDisabled,
+      onInputChange, onSaveButtonClick, hasTrunfo } = this.props;
 
     return (
       <div>
@@ -97,17 +127,8 @@ class Form extends Component {
               setValue={ onInputChange }
             />
           </div>
-          <div className="form-input">
-            <Input
-              name="cardTrunfo"
-              type="checkbox"
-              text="Super Trybe Trunfo"
-              id="trunfo-input"
-              dataTestId="trunfo-input"
-              value={ cardTrunfo }
-              setValue={ onInputChange }
-            />
-          </div>
+          { hasTrunfo
+            ? this.renderMensageValidateSuperTrunfo() : this.renderSuperTrunfoInput() }
           <div className="form-input">
             <button
               type="button"
@@ -133,7 +154,7 @@ Form.propTypes = {
   cardImage: PropTypes.string.isRequired,
   cardRare: PropTypes.string.isRequired,
   cardTrunfo: PropTypes.bool.isRequired,
-  // hasTrunfo: PropTypes.bool.isRequired,
+  hasTrunfo: PropTypes.bool.isRequired,
   isSaveButtonDisabled: PropTypes.bool.isRequired,
   onInputChange: PropTypes.func.isRequired,
   onSaveButtonClick: PropTypes.func.isRequired,
