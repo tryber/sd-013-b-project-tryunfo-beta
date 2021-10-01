@@ -3,10 +3,12 @@ import React, { Component } from 'react';
 
 class CardsDeck extends Component {
   render() {
-    const { cards, delCards } = this.props;
+    const { cards, delCards, inputFilterName } = this.props;
     return (
       <div>
-        {cards.length !== 0 && cards.map((element, index) => (
+        {cards.length !== 0 && cards
+          .filter((element) => element.cardName.includes(inputFilterName))
+        .map((element, index) => (
           <div key={ index }>
             <p>{element.cardName}</p>
             <p>{element.cardImage}</p>

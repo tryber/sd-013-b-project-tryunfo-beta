@@ -18,6 +18,7 @@ class App extends React.Component {
       cardImage: '',
       cardRare: '',
       id: 0,
+      nameFilter: '',
       cardTrunfo: false,
       hasTrunfo: false,
       isSaveButtonDisabled: true,
@@ -125,7 +126,7 @@ class App extends React.Component {
   }
 
   render() {
-    const { cards } = this.state;
+    const { cards, nameFilter } = this.state;
     const defaultProps = {
       ...this.state,
     };
@@ -137,8 +138,20 @@ class App extends React.Component {
           onInputChange={ this.onInputChange }
           onSaveButtonClick={ this.onSaveButtonClick }
         />
+        <label htmlFor="name-filter">
+          <input
+            type="text"
+            name="nameFilter"
+            data-testid="name-filter"
+            onChange={ this.onInputChange }
+          />
+        </label>
         <Card { ...defaultProps } cards={ cards } />
-        <CardsDeck cards={ cards } delCards={ this.deleteCard } />
+        <CardsDeck
+          cards={ cards }
+          delCards={ this.deleteCard }
+          inputFilterName={ nameFilter }
+        />
       </div>
     );
   }
