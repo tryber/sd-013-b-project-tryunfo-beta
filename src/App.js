@@ -3,6 +3,11 @@ import Form from './components/Form';
 import './App.css';
 import Card from './components/Card';
 
+const ValidationField = [
+  'cardName', 'cardDescription', 'cardAttr1', 'cardAttr2', 'cardAttr3', 'cardImage',
+  'cardRare',
+];
+
 class App extends React.Component {
   constructor(props) {
     super(props);
@@ -16,8 +21,40 @@ class App extends React.Component {
       cardRare: '',
       cardTrunfo: false,
       hasTrunfo: false,
-      isSaveButtonDisabled: false,
+      isSaveButtonDisabled: true,
     };
+  }
+
+  componentDidUpdate() {
+    const { state: { isSaveButtonDisabled } } = this;
+    if (isSaveButtonDisabled) {
+      this.validationButton();
+    }
+  }
+
+  handleChangeAttr = (state, validation) => {
+    const MaxNumber = 90;
+    if (state[validation] < MaxNumber && state[validation] > 0) {
+      return false;
+    }
+  }
+
+  validationButton = () => {
+    let som = 0;
+    const MaxNumber = 90;
+    const limitPont = 210;
+    const validacao = ValidationField.map(((validation) => {
+      const { state } = this;
+      if (validation.includes('cardAttr')) {
+        som += Number(state[validation]);
+        return state[validation] <= MaxNumber && state[validation] > 0;
+      }
+      if (som > limitPont) { return false; }
+      return !!state[validation];
+    })).every((value) => value === true);
+    if (validacao) {
+      this.setState({ isSaveButtonDisabled: !validacao });
+    }
   }
 
   onInputChange = ({ target: { value, name } }) => {
