@@ -76,8 +76,8 @@ button:disabled {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  padding: 15px;
   height: 100%;
+  padding: 15px;
 }
 
 .card-main h1 {
@@ -101,6 +101,7 @@ button:disabled {
 
 .cards-body {
   display: flex;
+  flex-direction: column;
 }
 
 .cards-header {
@@ -120,3 +121,18 @@ button:disabled {
   justify-content: center;
 }
 
+.cards-header-filter {
+  align-items: center;
+  background-color: beige;
+  border-radius: 5px;
+  display: flex;
+  flex-wrap: wrap;
+  font-size: 1rem;
+  justify-content: center;
+  padding: 15px;
+}
+
+.cards-header-filter *:first-child {
+  margin: 0 25px;
+  padding: 5px;
+}
