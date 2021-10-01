@@ -17,6 +17,7 @@ class App extends React.Component {
       cardAttr3: '',
       cardImage: '',
       cardRare: '',
+      rareFil: 'todas',
       id: 0,
       nameFilter: '',
       cardTrunfo: false,
@@ -31,6 +32,7 @@ class App extends React.Component {
     this.validationCardDesc = this.validationCardDesc.bind(this);
     this.verifyTrunfo = this.verifyTrunfo.bind(this);
     this.deleteCard = this.deleteCard.bind(this);
+    this.filters = this.filters.bind(this);
   }
 
   onSaveButtonClick() {
@@ -125,8 +127,19 @@ class App extends React.Component {
     return false;
   }
 
+  filters() {
+    const { nameFilter, rareFil, cards } = this.state;
+    if (nameFilter !== '') {
+      return cards.filter((element) => element.cardName.includes(nameFilter));
+    }
+    if (rareFil !== 'todas') {
+      return cards.filter((element) => element.cardRare === rareFil);
+    }
+    return cards;
+  }
+
   render() {
-    const { cards, nameFilter } = this.state;
+    const { cards } = this.state;
     const defaultProps = {
       ...this.state,
     };
@@ -139,6 +152,7 @@ class App extends React.Component {
           onSaveButtonClick={ this.onSaveButtonClick }
         />
         <label htmlFor="name-filter">
+          Filtre por nome:
           <input
             type="text"
             name="nameFilter"
@@ -146,11 +160,18 @@ class App extends React.Component {
             onChange={ this.onInputChange }
           />
         </label>
+        Filtrar por raridade:
+        <select name="rareFil" data-testid="rare-filter" onChange={ this.onInputChange }>
+          <option>todas</option>
+          <option>normal</option>
+          <option>raro</option>
+          <option>muito raro</option>
+        </select>
         <Card { ...defaultProps } cards={ cards } />
         <CardsDeck
           cards={ cards }
           delCards={ this.deleteCard }
-          inputFilterName={ nameFilter }
+          filters={ this.filters }
         />
       </div>
     );

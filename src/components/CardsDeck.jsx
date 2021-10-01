@@ -3,11 +3,10 @@ import React, { Component } from 'react';
 
 class CardsDeck extends Component {
   render() {
-    const { cards, delCards, inputFilterName } = this.props;
+    const { cards, delCards, filters } = this.props;
     return (
       <div>
-        {cards.length !== 0 && cards
-          .filter((element) => element.cardName.includes(inputFilterName))
+        {filters().length !== 0 && filters()
           .map((element, index) => (
             <div key={ index }>
               <p>{element.cardName}</p>
@@ -34,12 +33,11 @@ class CardsDeck extends Component {
 
 CardsDeck.propTypes = {
   cards: PropTypes.shape({
-    filter: PropTypes.func,
     length: PropTypes.number,
     map: PropTypes.func,
   }).isRequired,
   delCards: PropTypes.func.isRequired,
-  inputFilterName: PropTypes.string.isRequired,
+  filters: PropTypes.func.isRequired,
 };
 
 export default CardsDeck;
