@@ -22,6 +22,7 @@ class App extends React.Component {
       cardTrunfo: false,
       hasTrunfo: false,
       isSaveButtonDisabled: true,
+      cardsSaves: [],
     };
   }
 
@@ -65,10 +66,33 @@ class App extends React.Component {
     }
   }
 
+  clearState = () => {
+    this.setState({ cardName: '',
+      cardDescription: '',
+      cardAttr1: 0,
+      cardAttr2: 0,
+      cardAttr3: 0,
+      cardImage: '',
+      cardRare: '',
+      cardTrunfo: false,
+      hasTrunfo: false,
+      isSaveButtonDisabled: true });
+  }
+
+  onSaveButtonClick = () => {
+    const { state } = this;
+    this.setState((prevState) => ({ cardsCaves: [...prevState.cardsSaves, state] }));
+    this.clearState();
+  }
+
   render() {
     return (
       <div className="app">
-        <Form { ...this.state } onInputChange={ this.onInputChange } />
+        <Form
+          { ...this.state }
+          onInputChange={ this.onInputChange }
+          onSaveButtonClick={ this.onSaveButtonClick }
+        />
         <Card { ...this.state } />
       </div>
     );
