@@ -4,7 +4,10 @@ import Card from './components/Card';
 import Cards from './components/Cards';
 import Form from './components/Form';
 import Input from './components/Input';
+import Jogar from './components/Jogar';
 import Select from './components/Select';
+
+import getCardsFiltered from './util/functions';
 
 class App extends React.Component {
   constructor(props) {
@@ -16,7 +19,7 @@ class App extends React.Component {
       cardAttr2: '0',
       cardAttr3: '0',
       cardImage: '',
-      cardRare: '',
+      cardRare: 'normal',
       cardTrunfo: false,
       hasTrunfo: false,
       isSaveButtonDisabled: true,
@@ -25,6 +28,7 @@ class App extends React.Component {
       cardNameFilter: '',
       cardRareFilter: 'todas',
       cardTrunfoFilter: false,
+      isPlay: false,
     };
     this.handelChange = this.handelChange.bind(this);
     this.updateState = this.updateState.bind(this);
@@ -32,9 +36,9 @@ class App extends React.Component {
     this.getIsNumberValid = this.getIsNumberValid.bind(this);
     this.saveCard = this.saveCard.bind(this);
     this.deleteCard = this.deleteCard.bind(this);
-    this.getCardsFiltered = this.getCardsFiltered.bind(this);
-    this.getCardsRareFilter = this.getCardsRareFilter.bind(this);
-    this.getCardsNameFilter = this.getCardsNameFilter.bind(this);
+    this.renderMain = this.renderMain.bind(this);
+    this.renderPlayButton = this.renderPlayButton.bind(this);
+    this.endPlay = this.endPlay.bind(this);
   }
 
   componentDidUpdate() {
@@ -47,32 +51,6 @@ class App extends React.Component {
       this.updateState('isSaveButtonDisabled', true);
       this.updateState('isValid', false);
     }
-  }
-
-  getCardsNameFilter(datas) {
-    const { cardNameFilter } = this.state;
-    return (
-      (cardNameFilter !== '')
-        ? datas.filter((data) => data.cardName.includes(cardNameFilter))
-        : datas
-    );
-  }
-
-  getCardsRareFilter() {
-    const { cards, cardRareFilter } = this.state;
-    return (
-      (cardRareFilter !== 'todas')
-        ? cards.filter((card) => card.cardRare === cardRareFilter)
-        : cards
-    );
-  }
-
-  getCardsFiltered() {
-    const { cards, cardTrunfoFilter } = this.state;
-    return ((cardTrunfoFilter)
-      ? cards.filter((card) => card.cardTrunfo === true)
-      : this.getCardsNameFilter(this.getCardsRareFilter())
-    );
   }
 
   getIsNumberValid(number) {
@@ -154,14 +132,29 @@ class App extends React.Component {
     });
   }
 
-  render() {
-    const { cardName, cardDescription, cardAttr1, cardAttr2,
-      cardAttr3, cardImage, cardRare, cardTrunfo, hasTrunfo,
-      isSaveButtonDisabled, cardNameFilter,
-      cardRareFilter, cardTrunfoFilter } = this.state;
+  endPlay() {
+    this.setState({ isPlay: false });
+  }
 
+  renderPlayButton() {
     return (
-      <div className="body">
+      <button
+        type="button"
+        onClick={ () => this.setState({ isPlay: true }) }
+      >
+        Jogar
+      </button>
+    );
+  }
+
+  renderMain() {
+    const { cardName, cardDescription, cardAttr1, cardAttr2, cardAttr3, cardImage,
+      cardRare, cardTrunfo, hasTrunfo, isSaveButtonDisabled, cardNameFilter,
+      cardRareFilter, cardTrunfoFilter, cards } = this.state;
+    const renderCards = getCardsFiltered(cards, cardTrunfoFilter,
+      cardRareFilter, cardNameFilter);
+    return (
+      <>
         <div className="main-sup">
           <Form
             cardName={ cardName }
@@ -188,6 +181,7 @@ class App extends React.Component {
             cardTrunfo={ cardTrunfo }
           />
         </div>
+        { renderCards.length !== 0 && this.renderPlayButton() }
         <div className="cards-body">
           <div className="cards-header">
             <h1>Todas as Cartas</h1>
@@ -222,12 +216,23 @@ class App extends React.Component {
               />
             </div>
           </div>
-          { this.getCardsFiltered().length !== 0
+          { renderCards.length !== 0
             && <Cards
-              cards={ this.getCardsFiltered() }
+              cards={ renderCards }
               deleteCard={ this.deleteCard }
             /> }
         </div>
+      </>
+    );
+  }
+
+  render() {
+    const { isPlay, cards } = this.state;
+    return (
+      <div className="body">
+        { isPlay
+          ? <Jogar cards={ cards } endPlay={ this.endPlay } />
+          : this.renderMain() }
       </div>
     );
   }
