@@ -4,6 +4,8 @@ import { Form, Card, Input } from './components';
 const MIN_ATTR = 0;
 const MAX_ATTR = 90;
 const MAX_POINTS = 210;
+const RARITY_OPTIONS = ['todas', 'normal', 'raro', 'muito raro'];
+
 const INITIAL_CARD_STATE = {
   cardName: '',
   cardDescription: '',
@@ -21,13 +23,17 @@ class App extends React.Component {
     this.state = {
       ...INITIAL_CARD_STATE,
       hasTrunfo: false,
-      nameFilter: '',
+      filters: {
+        nameFilter: '',
+        rareFilter: RARITY_OPTIONS[0],
+      },
       isSaveButtonDisabled: true,
       cards: [],
     };
 
     this.handleClick = this.handleClick.bind(this);
     this.onInputChange = this.onInputChange.bind(this);
+    this.onFilterChange = this.onFilterChange.bind(this);
     this.onSaveButtonClick = this.onSaveButtonClick.bind(this);
     this.validateInputs = this.validateInputs.bind(this);
   }
@@ -53,6 +59,16 @@ class App extends React.Component {
     }, () => this.validateInputs());
   }
 
+  onFilterChange({ target }) {
+    const { name, value } = target;
+    this.setState((prevState) => ({
+      filters: {
+        ...prevState.filters,
+        [name]: value,
+      },
+    }));
+  }
+
   onSaveButtonClick(e) {
     e.preventDefault();
     const { isSaveButtonDisabled, cards, ...newCard } = this.state;
@@ -71,9 +87,20 @@ class App extends React.Component {
     Number(attr1) + Number(attr2) + Number(attr3) <= MAX_POINTS
   );
 
+  filters(card) {
+    const filteredByName = this.filterByName(card);
+    const filteredByRare = this.filterByRare(card);
+    return filteredByName && filteredByRare;
+  }
+
   filterByName(card) {
-    const { nameFilter } = this.state;
+    const { filters: { nameFilter } } = this.state;
     return card.cardName.toLowerCase().includes(nameFilter.toLowerCase());
+  }
+
+  filterByRare(card) {
+    const { filters: { rareFilter } } = this.state;
+    return card.cardRare === rareFilter || rareFilter === RARITY_OPTIONS[0];
   }
 
   validateInputs() {
@@ -115,6 +142,7 @@ class App extends React.Component {
       isSaveButtonDisabled,
       hasTrunfo,
       cards,
+      filters,
     } = this.state;
     return (
       <div>
@@ -136,11 +164,26 @@ class App extends React.Component {
         <hr />
         <Input
           type="text"
-          text="Filtrar por nome: "
+          text="Filtrar por nome:"
           name="nameFilter"
-          onChange={ this.onInputChange }
+          value={ filters.nameFilter }
+          onChange={ this.onFilterChange }
           dataTestid="name-filter"
         />
+        <label htmlFor="cardRare">
+          Filtrar por raridade:
+          <select
+            id="cardRare"
+            name="rareFilter"
+            value={ filters.rareFilter }
+            onChange={ this.onFilterChange }
+            data-testid="rare-filter"
+          >
+            { RARITY_OPTIONS.map((option) => (
+              <option key={ option } value={ option }>{option}</option>
+            )) }
+          </select>
+        </label>
         <hr />
         <Card
           cardName={ cardName }
@@ -153,7 +196,7 @@ class App extends React.Component {
           cardTrunfo={ cardTrunfo }
         />
         {
-          cards.filter((card) => this.filterByName(card)).map((card) => (
+          cards.filter((card) => this.filters(card)).map((card) => (
             <div key={ card.cardName }>
               <Card
                 cardName={ card.cardName }
