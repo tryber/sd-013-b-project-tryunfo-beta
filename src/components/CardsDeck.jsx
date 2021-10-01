@@ -35,6 +35,7 @@ CardsDeck.propTypes = {
     length: PropTypes.number,
     map: PropTypes.func,
   }).isRequired,
+  delCards: PropTypes.func.isRequired,
 };
 
 export default CardsDeck;
