@@ -73,6 +73,13 @@ function App() {
     }
   };
 
+  const handleDelete = (cardName, isTrunfo) => {
+    setCards((prevState) => [...prevState.filter((card) => card.name !== cardName)]);
+    if (isTrunfo) {
+      setHasTrunfo(false);
+    }
+  };
+
   return (
     <main className="app-body">
       <Form
@@ -101,17 +108,25 @@ function App() {
       />
       <div>
         {cards.length && cards.map((card) => (
-          <Card
-            key={ card.name }
-            cardName={ card.name }
-            cardDescription={ card.description }
-            cardAttr1={ card.attr1 }
-            cardAttr2={ card.attr2 }
-            cardAttr3={ card.attr3 }
-            cardImage={ card.image }
-            cardRare={ card.rare }
-            cardTrunfo={ card.trunfo }
-          />
+          <div key={ card.name }>
+            <Card
+              cardName={ card.name }
+              cardDescription={ card.description }
+              cardAttr1={ card.attr1 }
+              cardAttr2={ card.attr2 }
+              cardAttr3={ card.attr3 }
+              cardImage={ card.image }
+              cardRare={ card.rare }
+              cardTrunfo={ card.trunfo }
+            />
+            <button
+              data-testid="delete-button"
+              type="button"
+              onClick={ () => handleDelete(card.name, card.trunfo) }
+            >
+              Excluir
+            </button>
+          </div>
         ))}
       </div>
     </main>
