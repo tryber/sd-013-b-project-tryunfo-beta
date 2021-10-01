@@ -12,6 +12,7 @@ const INITIAL_CARD_STATE = {
   cardAttr3: 0,
   cardImage: '',
   cardRare: 'normal',
+  cardTrunfo: false,
 };
 
 class App extends React.Component {
@@ -19,15 +20,29 @@ class App extends React.Component {
     super(props);
     this.state = {
       ...INITIAL_CARD_STATE,
-      cardTrunfo: false,
       hasTrunfo: false,
       isSaveButtonDisabled: true,
       cards: [],
     };
 
+    this.handleClick = this.handleClick.bind(this);
     this.onInputChange = this.onInputChange.bind(this);
     this.onSaveButtonClick = this.onSaveButtonClick.bind(this);
     this.validateInputs = this.validateInputs.bind(this);
+  }
+
+  handleClick(name, description, cardTrunfo) {
+    const { cards } = this.state;
+
+    if (cardTrunfo) {
+      this.setState({ hasTrunfo: false });
+    }
+
+    this.setState({
+      cards: cards.filter(({ cardName, cardDescription }) => (
+        cardName !== name && cardDescription !== description
+      )),
+    });
   }
 
   onInputChange({ target }) {
@@ -39,7 +54,7 @@ class App extends React.Component {
 
   onSaveButtonClick(e) {
     e.preventDefault();
-    const { isSaveButtonDisabled, cards, cardTrunfo, ...newCard } = this.state;
+    const { isSaveButtonDisabled, cards, ...newCard } = this.state;
     this.setState((prevState) => ({
       cards: [...prevState.cards, newCard],
       ...INITIAL_CARD_STATE,
@@ -133,9 +148,17 @@ class App extends React.Component {
                 cardAttr3={ card.cardAttr3 }
                 cardImage={ card.cardImage }
                 cardRare={ card.cardRare }
-                // cardTrunfo={ card.cardTrunfo }
+                cardTrunfo={ card.cardTrunfo }
               />
-              <button type="button">Excluir</button>
+              <button
+                type="button"
+                data-testid="delete-button"
+                onClick={ () => this.handleClick(
+                  card.cardName, card.cardDescription, card.cardTrunfo,
+                ) }
+              >
+                Excluir
+              </button>
             </div>
           ))
         }
