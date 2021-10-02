@@ -23,7 +23,7 @@ class Form extends React.Component {
       onSaveButtonClick,
     } = this.props;
     return (
-      <form>
+      <form onSubmit={ onSaveButtonClick }>
         <h2>Adicionar nova carta</h2>
         <Input
           id="name-input"
@@ -89,7 +89,6 @@ class Form extends React.Component {
         />
         <Button
           id="save-button"
-          onClick={ onSaveButtonClick }
           disabled={ isSaveButtonDisabled }
           text="Salvar"
         />

@@ -5,21 +5,25 @@ import Form from './components/Form';
 const MIN_ATTR = 0;
 const MAX_ATTR = 90;
 const MAX_POINTS = 210;
+const INITIAL_STATE = {
+  cardName: '',
+  cardDescription: '',
+  cardAttr1: 0,
+  cardAttr2: 0,
+  cardAttr3: 0,
+  cardImage: '',
+  cardRare: 'normal',
+  cardTrunfo: false,
+  hasTrunfo: false,
+  isSaveButtonDisabled: true,
+  pack: [],
+};
 class App extends React.Component {
   constructor() {
     super();
 
     this.state = {
-      cardName: '',
-      cardDescription: '',
-      cardAttr1: '',
-      cardAttr2: '',
-      cardAttr3: '',
-      cardImage: '',
-      cardRare: 'normal',
-      cardTrunfo: false,
-      hasTrunfo: false,
-      isSaveButtonDisabled: true,
+      ...INITIAL_STATE,
     };
   }
 
@@ -62,6 +66,15 @@ class App extends React.Component {
     this.setState({ isSaveButtonDisabled: !setDisabled });
   }
 
+  onSaveButtonClick = (event) => {
+    event.preventDefault();
+    const { isSaveButtonDisabled, pack, ...newCard } = this.state;
+    this.setState((prevState) => ({
+      ...INITIAL_STATE,
+      pack: [...prevState.pack, newCard],
+    }));
+  }
+
   render() {
     const defaultProps = this.state;
     return (
@@ -69,6 +82,7 @@ class App extends React.Component {
         <Form
           { ...defaultProps }
           onInputChange={ this.handleChange }
+          onSaveButtonClick={ this.onSaveButtonClick }
         />
         <Card { ...defaultProps } />
       </div>
