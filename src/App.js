@@ -14,9 +14,6 @@ const INITIAL_STATE = {
   cardImage: '',
   cardRare: 'normal',
   cardTrunfo: false,
-  hasTrunfo: false,
-  isSaveButtonDisabled: true,
-  pack: [],
 };
 class App extends React.Component {
   constructor() {
@@ -24,6 +21,9 @@ class App extends React.Component {
 
     this.state = {
       ...INITIAL_STATE,
+      hasTrunfo: false,
+      isSaveButtonDisabled: true,
+      pack: [],
     };
   }
 
@@ -70,14 +70,15 @@ class App extends React.Component {
     event.preventDefault();
     const { isSaveButtonDisabled, pack, ...newCard } = this.state;
     this.setState((prevState) => ({
-      ...INITIAL_STATE,
       pack: [...prevState.pack, newCard],
-      hasTrunfo: !prevState.hasTrunfo,
+      ...INITIAL_STATE,
+      hasTrunfo: !prevState.hasTrunfo && prevState.cardTrunfo,
     }));
   }
 
   render() {
     const defaultProps = this.state;
+    const { pack } = defaultProps;
     return (
       <div>
         <Form
@@ -86,6 +87,20 @@ class App extends React.Component {
           onSaveButtonClick={ this.onSaveButtonClick }
         />
         <Card { ...defaultProps } />
+        { pack.map((card) => (
+          <div key={ card.cardName }>
+            <Card
+              cardName={ card.cardName }
+              cardDescription={ card.cardDescription }
+              cardAttr1={ card.cardAttr1 }
+              cardAttr2={ card.cardAttr2 }
+              cardAttr3={ card.cardAttr3 }
+              cardImage={ card.cardImage }
+              cardRare={ card.cardRare }
+              cardTrunfo={ card.cardTrunfo }
+            />
+          </div>
+        ))}
       </div>
     );
   }
