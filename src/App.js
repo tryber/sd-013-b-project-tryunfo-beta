@@ -27,6 +27,20 @@ class App extends React.Component {
     };
   }
 
+  handleClick = (name, description, trunfo) => {
+    const { pack } = this.state;
+
+    if (trunfo) {
+      this.setState({ hasTrunfo: false });
+    }
+
+    this.setState({
+      pack: pack.filter(({ cardName, cardDescription }) => (
+        cardName !== name && cardDescription !== description
+      )),
+    });
+  }
+
   handleChange = ({ target: { name, value, type, checked } }) => {
     this.setState({
       [name]: type === 'checkbox' ? checked : value,
@@ -90,7 +104,7 @@ class App extends React.Component {
         { pack.map((card) => (
           <div key={ card.cardName }>
             <Card
-              cardName={ card.cardName }
+              cardName={ `${card.cardName}` }
               cardDescription={ card.cardDescription }
               cardAttr1={ card.cardAttr1 }
               cardAttr2={ card.cardAttr2 }
@@ -99,6 +113,16 @@ class App extends React.Component {
               cardRare={ card.cardRare }
               cardTrunfo={ card.cardTrunfo }
             />
+            <button
+              type="button"
+              id="delete-button"
+              data-testid="delete-button"
+              onClick={ () => this.handleClick(
+                card.cardName, card.cardDescription, card.cardTrunfo,
+              ) }
+            >
+              Excluir
+            </button>
           </div>
         ))}
       </div>

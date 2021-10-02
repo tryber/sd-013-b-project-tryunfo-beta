@@ -94,6 +94,7 @@ class Form extends React.Component {
         <Button
           id="save-button"
           disabled={ isSaveButtonDisabled }
+          type="submit"
           text="Salvar"
         />
       </form>
