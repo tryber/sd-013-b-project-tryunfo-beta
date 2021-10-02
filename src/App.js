@@ -72,6 +72,7 @@ class App extends React.Component {
     this.setState((prevState) => ({
       ...INITIAL_STATE,
       pack: [...prevState.pack, newCard],
+      hasTrunfo: !prevState.hasTrunfo,
     }));
   }
 
