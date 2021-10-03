@@ -142,14 +142,14 @@ button:disabled {
   background-color: rgb(8, 19, 0);
   display: flex;
   flex-direction: column;
-  justify-content: center;
   height: 100vh;
+  justify-content: center;
   width: 100vw;
 }
 
 .jogar-body button {
   margin: 0 20px;
-  padding: 7px 30px
+  padding: 7px 30px;
 }
 
 .jogar-cards {
