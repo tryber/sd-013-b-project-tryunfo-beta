@@ -10,6 +10,7 @@ class CardList extends React.Component {
         <h1>Cards List</h1>
         {cardList.length >= 1 ? cardList.map((card, index) => (
           <div key={ index }>
+            <h1>Card</h1>
             <h3>{card.name}</h3>
             <h3>{card.description}</h3>
             <h3>{card.attr1}</h3>
@@ -17,6 +18,7 @@ class CardList extends React.Component {
             <h3>{card.attr3}</h3>
             <h3>{card.image}</h3>
             <h3>{card.rarity}</h3>
+            <h2>{card.superTrunfo ? 'Super Trunfo' : ''}</h2>
           </div>
         )) : <h1>Deck Vazio</h1>}
       </div>
@@ -33,6 +35,7 @@ CardList.propTypes = {
     attr3: PropTypes.number.isRequired,
     image: PropTypes.string.isRequired,
     rarity: PropTypes.string.isRequired,
+    superTrunfo: PropTypes.bool.isRequired,
   })).isRequired,
 };
 

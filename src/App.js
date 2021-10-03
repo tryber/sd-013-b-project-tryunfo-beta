@@ -53,7 +53,7 @@ class App extends React.Component {
 
   addCardToList() {
     const { cardName, cardDescription, cardAttr1, cardAttr2, cardAttr3,
-      cardImage, cardRare } = this.state;
+      cardImage, cardRare, cardTrunfo } = this.state;
 
     const objtToAppend = {
       name: cardName,
@@ -63,6 +63,7 @@ class App extends React.Component {
       attr3: cardAttr3,
       image: cardImage,
       rarity: cardRare,
+      superTrunfo: cardTrunfo,
     };
 
     this.setState((prevState) => ({
