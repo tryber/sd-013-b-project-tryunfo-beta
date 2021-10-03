@@ -1,5 +1,6 @@
 import React from 'react';
 import Card from './components/Card';
+import CardList from './components/CardList';
 import Form from './components/Form';
 
 const MAX_NUMBER = 90;
@@ -33,6 +34,7 @@ class App extends React.Component {
       },
       onSaveButtonClick: () => {
         this.checkTrunfo();
+        this.addCardToList();
         this.setState({
           cardName: '',
           cardDescription: '',
@@ -45,7 +47,27 @@ class App extends React.Component {
           isSaveButtonDisabled: true,
         });
       },
+      cardList: [],
     };
+  }
+
+  addCardToList() {
+    const { cardName, cardDescription, cardAttr1, cardAttr2, cardAttr3,
+      cardImage, cardRare } = this.state;
+
+    const objtToAppend = {
+      name: cardName,
+      description: cardDescription,
+      attr1: cardAttr1,
+      attr2: cardAttr2,
+      attr3: cardAttr3,
+      image: cardImage,
+      rarity: cardRare,
+    };
+
+    this.setState((prevState) => ({
+      cardList: [...prevState.cardList, objtToAppend],
+    }));
   }
 
   checkTrunfo() {
@@ -76,7 +98,7 @@ class App extends React.Component {
     const {
       cardName, cardDescription, cardAttr1, cardAttr2, cardAttr3, cardImage, cardRare,
       cardTrunfo, hasTrunfo, isSaveButtonDisabled, onInputChange, onSaveButtonClick,
-    } = this.state;
+      cardList } = this.state;
 
     return (
       <div>
@@ -105,6 +127,7 @@ class App extends React.Component {
           cardRare={ cardRare }
           cardTrunfo={ cardTrunfo }
         />
+        <CardList cardList={ cardList } />
       </div>
     );
   }
