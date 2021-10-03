@@ -32,6 +32,7 @@ class App extends React.Component {
         }
       },
       onSaveButtonClick: () => {
+        this.checkTrunfo();
         this.setState({
           cardName: '',
           cardDescription: '',
@@ -41,9 +42,15 @@ class App extends React.Component {
           cardImage: '',
           cardRare: '',
           cardTrunfo: false,
+          isSaveButtonDisabled: true,
         });
       },
     };
+  }
+
+  checkTrunfo() {
+    const { cardTrunfo } = this.state;
+    if (cardTrunfo === true) this.setState({ hasTrunfo: true });
   }
 
   checkSaveBtn() {
