@@ -2,6 +2,9 @@ import React from 'react';
 import Card from './components/Card';
 import Form from './components/Form';
 
+const MAX_NUMBER = 90;
+const MAX_SUM = 210;
+
 class App extends React.Component {
   constructor(props) {
     super(props);
@@ -15,18 +18,42 @@ class App extends React.Component {
       cardRare: '',
       cardTrunfo: false,
       hasTrunfo: false,
-      isSaveButtonDisabled: false,
+      isSaveButtonDisabled: true,
       onInputChange: ({ target }) => {
         const { name, value } = target;
         const { cardTrunfo } = this.state;
         if (name === 'cardTrunfo') {
           this.setState({ cardTrunfo: !cardTrunfo });
         } else {
-          this.setState({ [name]: value });
+          this.setState({ [name]: value },
+            () => {
+              this.checkSaveBtn();
+            });
         }
       },
-      onSaveButtonClick: () => {},
+      onSaveButtonClick: () => {
+
+      },
     };
+  }
+
+  checkSaveBtn() {
+    const { cardName, cardDescription, cardAttr1, cardAttr2, cardAttr3,
+      cardImage, cardRare } = this.state;
+    const sumOfCards = Number(cardAttr1) + Number(cardAttr2) + Number(cardAttr3);
+
+    if (cardName && cardDescription && cardRare && cardImage
+      && cardAttr1 >= 0 && cardAttr2 >= 0 && cardAttr3 >= 0
+      && cardAttr1 <= MAX_NUMBER && cardAttr2 <= MAX_NUMBER && cardAttr3 <= MAX_NUMBER
+      && sumOfCards <= MAX_SUM) {
+      this.setState({
+        isSaveButtonDisabled: false,
+      });
+    } else {
+      this.setState({
+        isSaveButtonDisabled: true,
+      });
+    }
   }
 
   render() {
