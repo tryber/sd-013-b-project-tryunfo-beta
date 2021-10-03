@@ -67,16 +67,30 @@ class App extends React.Component {
   }
 
   clearState = () => {
-    this.setState({ cardName: '',
-      cardDescription: '',
-      cardAttr1: 0,
-      cardAttr2: 0,
-      cardAttr3: 0,
-      cardImage: '',
-      cardRare: '',
-      cardTrunfo: false,
-      hasTrunfo: true,
-      isSaveButtonDisabled: true });
+    const { state: { hasTrunfo, cardTrunfo } } = this;
+    if (cardTrunfo) {
+      this.setState({ cardName: '',
+        cardDescription: '',
+        cardAttr1: 0,
+        cardAttr2: 0,
+        cardAttr3: 0,
+        cardImage: '',
+        cardRare: '',
+        cardTrunfo: false,
+        hasTrunfo: true,
+        isSaveButtonDisabled: true });
+    } else {
+      this.setState({ cardName: '',
+        cardDescription: '',
+        cardAttr1: 0,
+        cardAttr2: 0,
+        cardAttr3: 0,
+        cardImage: '',
+        cardRare: '',
+        cardTrunfo: false,
+        hasTrunfo,
+        isSaveButtonDisabled: true });
+    }
   }
 
   onSaveButtonClick = () => {
@@ -85,21 +99,40 @@ class App extends React.Component {
     this.clearState();
   }
 
+  handleClickDelete = (index) => {
+    const { state: { cardsSaves } } = this;
+    const copyCardsSave = [...cardsSaves];
+    copyCardsSave.splice(index, 1);
+    const hasTrunfoVerification = copyCardsSave.some(
+      ({ cardTrunfo }) => cardTrunfo === true,
+    );
+    this.setState({ cardsSaves: [], hasTrunfo: hasTrunfoVerification });
+  }
+
   render() {
     const { state } = this;
     return (
-      <div className="app">
-        <Form
-          { ...this.state }
-          onInputChange={ this.onInputChange }
-          onSaveButtonClick={ this.onSaveButtonClick }
-        />
-        <Card { ...this.state } />
+      <div>
+        <section className="app">
+          <Form
+            { ...this.state }
+            onInputChange={ this.onInputChange }
+            onSaveButtonClick={ this.onSaveButtonClick }
+          />
+          <Card { ...this.state } />
+        </section>
         <ul>
-          {state.cardsSaves?.map((card) => (
-            <li key={ card.cardName }>
+          {state.cardsSaves.map((card, index) => (
+            <li key={ index } data-testid={ `${index}-card-save` }>
               <p>{card.cardName}</p>
               <p>{card.cardDescription}</p>
+              <button
+                type="button"
+                data-testid="delete-button"
+                onClick={ () => this.handleClickDelete(index) }
+              >
+                Excluir
+              </button>
             </li>
           ))}
         </ul>

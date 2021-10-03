@@ -98,7 +98,6 @@ describe("9 - Crie um botão para remover uma carta do baralho", () => {
     const deleteBtn = screen.getAllByTestId("delete-button");
     const nameDeletedCard = screen.getByText("Carta 1 - Pombo da Cidade");
     userEvent.click(deleteBtn[0]);
-    
     expect(nameDeletedCard).not.toBeInTheDocument();
   });
 
