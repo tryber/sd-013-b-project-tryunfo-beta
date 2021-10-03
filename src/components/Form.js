@@ -31,6 +31,7 @@ class Form extends React.Component {
           data-testid="trunfo-input"
         />
       </label>);
+
     return (
       <div>
         <h1>Adicionar nova carta</h1>
