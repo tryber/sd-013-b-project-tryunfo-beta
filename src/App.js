@@ -1,4 +1,5 @@
 import React from 'react';
+import Card from './components/Card';
 import Form from './components/Form';
 
 class App extends React.Component {
@@ -12,12 +13,17 @@ class App extends React.Component {
       cardAttr3: 0,
       cardImage: '',
       cardRare: '',
-      cardTrunfo: true,
+      cardTrunfo: false,
       hasTrunfo: false,
       isSaveButtonDisabled: false,
       onInputChange: ({ target }) => {
         const { name, value } = target;
-        this.setState({ [name]: value });
+        const { cardTrunfo } = this.state;
+        if (name === 'cardTrunfo') {
+          this.setState({ cardTrunfo: !cardTrunfo });
+        } else {
+          this.setState({ [name]: value });
+        }
       },
       onSaveButtonClick: () => {},
     };
@@ -25,14 +31,8 @@ class App extends React.Component {
 
   render() {
     const {
-      cardName, cardDescription, cardAttr1, cardAttr2, cardAttr3,
-      cardImage,
-      cardRare,
-      cardTrunfo,
-      hasTrunfo,
-      isSaveButtonDisabled,
-      onInputChange,
-      onSaveButtonClick,
+      cardName, cardDescription, cardAttr1, cardAttr2, cardAttr3, cardImage, cardRare,
+      cardTrunfo, hasTrunfo, isSaveButtonDisabled, onInputChange, onSaveButtonClick,
     } = this.state;
 
     return (
@@ -51,6 +51,16 @@ class App extends React.Component {
           isSaveButtonDisabled={ isSaveButtonDisabled }
           onInputChange={ onInputChange }
           onSaveButtonClick={ onSaveButtonClick }
+        />
+        <Card
+          cardName={ cardName }
+          cardDescription={ cardDescription }
+          cardAttr1={ cardAttr1 }
+          cardAttr2={ cardAttr2 }
+          cardAttr3={ cardAttr3 }
+          cardImage={ cardImage }
+          cardRare={ cardRare }
+          cardTrunfo={ cardTrunfo }
         />
       </div>
     );
