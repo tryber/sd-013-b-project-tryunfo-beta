@@ -70,6 +70,7 @@ class App extends React.Component {
 
     this.onInputChange = this.onInputChange.bind(this);
     this.onSaveButtonClick = this.onSaveButtonClick.bind(this);
+    this.onDeleteButtonClick = this.onDeleteButtonClick.bind(this);
     this.checkValidInputs = this.checkValidInputs.bind(this);
   }
 
@@ -97,8 +98,15 @@ class App extends React.Component {
     this.setState({
       ...INITIAL_STATE,
       cardList: [...cardList, cardProps],
-      hasTrunfo: cardProps.cardTrunfo,
+      hasTrunfo: cardProps.cardTrunfo || hasTrunfo,
     });
+  }
+
+  onDeleteButtonClick(cardIndex, cardTrunfo) {
+    this.setState(({ cardList }) => ({
+      cardList: cardList.filter((_, index) => index !== cardIndex),
+      hasTrunfo: !cardTrunfo,
+    }));
   }
 
   checkValidInputs() {
@@ -125,7 +133,10 @@ class App extends React.Component {
           onSaveButtonClick={ this.onSaveButtonClick }
         />
         <Card { ...cardProps } />
-        <CardList cardList={ cardList } />
+        <CardList
+          cardList={ cardList }
+          onDeleteButtonClick={ this.onDeleteButtonClick }
+        />
       </div>
     );
   }
