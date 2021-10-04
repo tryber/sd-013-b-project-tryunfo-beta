@@ -17,9 +17,9 @@ h1 {
 }
 
 .form-input {
-  height: 50px;
+  align-items: center;
   display: flex;
-  align-items: center
+  height: 50px;
 }
 
 .form input, textarea, select, button {
@@ -33,7 +33,6 @@ h1 {
   position: relative;
   text-align: center;
   width: 50%;
-  text-shadow: 1px 0 0 #fff, -1px 0 0 #fff, 0 1px 0 #fff, 0 -1px 0 #fff, 1px 1px #fff, -1px -1px 0 #fff, 1px -1px 0 #fff, -1px 1px 0 #fff;
 }
 
 .preview-card .name-card {
@@ -41,10 +40,10 @@ h1 {
 }
 
 .preview-card .image-card {
-  left: 0;
   height: 100%;
-  position: absolute;
+  left: 0;
   margin: 0;
+  position: absolute;
   top: 0;
   width: 100%;
   z-index: -1;
@@ -55,7 +54,6 @@ h1 {
 }
 
 .preview-card .trunfo-card {
-  color: #fff;
+  color: white;
   font-size: 1.5em;
-  text-shadow: 2px 0 0 #222, -2px 0 0 #222, 0 2px 0 #222, 0 -2px 0 #222, 1px 1px #222, -1px -1px 0 #222, 1px -1px 0 #222, -1px 1px 0 #222;
 }
