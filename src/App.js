@@ -5,7 +5,17 @@ import Form from './components/Form';
 
 const MAX_NUMBER = 90;
 const MAX_SUM = 210;
-
+const RESET_STATE = {
+  cardName: '',
+  cardDescription: '',
+  cardAttr1: 0,
+  cardAttr2: 0,
+  cardAttr3: 0,
+  cardImage: '',
+  cardRare: '',
+  cardTrunfo: false,
+  isSaveButtonDisabled: true,
+};
 class App extends React.Component {
   constructor(props) {
     super(props);
@@ -16,7 +26,7 @@ class App extends React.Component {
       cardAttr2: 0,
       cardAttr3: 0,
       cardImage: '',
-      cardRare: '',
+      cardRare: 'normal',
       cardTrunfo: false,
       hasTrunfo: false,
       isSaveButtonDisabled: true,
@@ -35,27 +45,28 @@ class App extends React.Component {
       onSaveButtonClick: () => {
         this.checkTrunfo();
         this.addCardToList();
-        this.setState({
-          cardName: '',
-          cardDescription: '',
-          cardAttr1: 0,
-          cardAttr2: 0,
-          cardAttr3: 0,
-          cardImage: '',
-          cardRare: '',
-          cardTrunfo: false,
-          isSaveButtonDisabled: true,
-        });
+        this.setState(RESET_STATE);
       },
       cardList: [],
+      deleteMovie: (id) => {
+        const { cardList } = this.state;
+        const filteredList = cardList.filter((item) => item.id !== id);
+        this.setState({
+          cardList: filteredList,
+        });
+        // check if deleted card has super trunfo
+        const getSuperTrunfo = filteredList.some((item) => item.superTrunfo === true);
+        if (!getSuperTrunfo) this.setState({ hasTrunfo: false });
+      },
     };
   }
 
   addCardToList() {
     const { cardName, cardDescription, cardAttr1, cardAttr2, cardAttr3,
-      cardImage, cardRare, cardTrunfo } = this.state;
+      cardImage, cardRare, cardTrunfo, cardList } = this.state;
 
     const objtToAppend = {
+      id: cardList.length,
       name: cardName,
       description: cardDescription,
       attr1: cardAttr1,
@@ -99,7 +110,7 @@ class App extends React.Component {
     const {
       cardName, cardDescription, cardAttr1, cardAttr2, cardAttr3, cardImage, cardRare,
       cardTrunfo, hasTrunfo, isSaveButtonDisabled, onInputChange, onSaveButtonClick,
-      cardList } = this.state;
+      cardList, deleteMovie } = this.state;
 
     return (
       <div>
@@ -128,7 +139,7 @@ class App extends React.Component {
           cardRare={ cardRare }
           cardTrunfo={ cardTrunfo }
         />
-        <CardList cardList={ cardList } />
+        <CardList cardList={ cardList } deleteMovie={ deleteMovie } />
       </div>
     );
   }

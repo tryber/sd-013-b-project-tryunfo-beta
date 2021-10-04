@@ -3,13 +3,13 @@ import React from 'react';
 
 class CardList extends React.Component {
   render() {
-    const { cardList } = this.props;
+    const { cardList, deleteMovie } = this.props;
     console.log(cardList);
     return (
       <div>
         <h1>Cards List</h1>
-        {cardList.length >= 1 ? cardList.map((card, index) => (
-          <div key={ index }>
+        {cardList.length >= 1 ? cardList.map((card) => (
+          <div key={ card.id }>
             <h1>Card</h1>
             <h3>{card.name}</h3>
             <h3>{card.description}</h3>
@@ -19,6 +19,13 @@ class CardList extends React.Component {
             <h3>{card.image}</h3>
             <h3>{card.rarity}</h3>
             <h2>{card.superTrunfo ? 'Super Trunfo' : ''}</h2>
+            <button
+              type="button"
+              data-testid="delete-button"
+              onClick={ () => deleteMovie(card.id) }
+            >
+              Excluir
+            </button>
           </div>
         )) : <h1>Deck Vazio</h1>}
       </div>
@@ -27,6 +34,7 @@ class CardList extends React.Component {
 }
 
 CardList.propTypes = {
+  deleteMovie: PropTypes.func.isRequired,
   cardList: PropTypes.arrayOf(PropTypes.shape({
     name: PropTypes.string.isRequired,
     description: PropTypes.string.isRequired,
