@@ -1,6 +1,7 @@
 import React from 'react';
-import { Form, Card, Input } from './components';
-import Checkbox from './components/Checkbox';
+import { Form, Card, Input, Checkbox, Select } from './components';
+
+import './App.css';
 
 const MIN_ATTR = 0;
 const MAX_ATTR = 90;
@@ -33,47 +34,42 @@ class App extends React.Component {
       cards: [],
     };
 
-    this.handleClick = this.handleClick.bind(this);
+    this.handleDeleteBtn = this.handleDeleteBtn.bind(this);
     this.onInputChange = this.onInputChange.bind(this);
     this.onFilterChange = this.onFilterChange.bind(this);
     this.onSaveButtonClick = this.onSaveButtonClick.bind(this);
     this.validateInputs = this.validateInputs.bind(this);
   }
 
-  handleClick(name, description, cardTrunfo) {
+  handleDeleteBtn(name, cardTrunfo) {
     const { cards } = this.state;
 
-    if (cardTrunfo) {
-      this.setState({ hasTrunfo: false });
-    }
-
     this.setState({
-      cards: cards.filter(({ cardName, cardDescription }) => (
-        cardName !== name && cardDescription !== description
-      )),
+      cards: cards.filter(({ cardName }) => cardName !== name),
+      hasTrunfo: !cardTrunfo,
     });
   }
 
   onInputChange({ target }) {
-    const { name, value, checked } = target;
+    const { name, value, checked, type } = target;
     this.setState({
-      [name]: name === 'cardTrunfo' ? checked : value,
+      [name]: type === 'checkbox' ? checked : value,
     }, () => this.validateInputs());
   }
 
   onFilterChange({ target }) {
-    const { name, value, checked } = target;
+    const { name, value, checked, type } = target;
     this.setState((prevState) => ({
       filters: {
         ...prevState.filters,
-        [name]: name === 'trunfoFilter' ? checked : value,
+        [name]: type === 'checkbox' ? checked : value,
       },
     }));
   }
 
   onSaveButtonClick(e) {
     e.preventDefault();
-    const { isSaveButtonDisabled, cards, ...newCard } = this.state;
+    const { isSaveButtonDisabled, cards, filters, hasTrunfo, ...newCard } = this.state;
     this.setState((prevState) => ({
       cards: [...prevState.cards, newCard],
       ...INITIAL_CARD_STATE,
@@ -151,63 +147,61 @@ class App extends React.Component {
     return (
       <div>
         <h1>Tryunfo</h1>
-        <Form
-          onInputChange={ this.onInputChange }
-          onSaveButtonClick={ this.onSaveButtonClick }
-          cardName={ cardName }
-          cardDescription={ cardDescription }
-          cardAttr1={ cardAttr1 }
-          cardAttr2={ cardAttr2 }
-          cardAttr3={ cardAttr3 }
-          cardImage={ cardImage }
-          cardRare={ cardRare }
-          cardTrunfo={ cardTrunfo }
-          hasTrunfo={ hasTrunfo }
-          isSaveButtonDisabled={ isSaveButtonDisabled }
-        />
+        <main className="make-card">
+          <Form
+            onInputChange={ this.onInputChange }
+            onSaveButtonClick={ this.onSaveButtonClick }
+            cardName={ cardName }
+            cardDescription={ cardDescription }
+            cardAttr1={ cardAttr1 }
+            cardAttr2={ cardAttr2 }
+            cardAttr3={ cardAttr3 }
+            cardImage={ cardImage }
+            cardRare={ cardRare }
+            cardTrunfo={ cardTrunfo }
+            hasTrunfo={ hasTrunfo }
+            isSaveButtonDisabled={ isSaveButtonDisabled }
+          />
+          <Card
+            cardName={ cardName }
+            cardDescription={ cardDescription }
+            cardAttr1={ cardAttr1 }
+            cardAttr2={ cardAttr2 }
+            cardAttr3={ cardAttr3 }
+            cardImage={ cardImage }
+            cardRare={ cardRare }
+            cardTrunfo={ cardTrunfo }
+          />
+        </main>
         <hr />
-        <Input
-          type="text"
-          text="Filtrar por nome:"
-          name="nameFilter"
-          value={ filters.nameFilter }
-          onChange={ this.onFilterChange }
-          dataTestid="name-filter"
-          disabled={ filters.trunfoFilter }
-        />
-        <label htmlFor="cardRare">
-          Filtrar por raridade:
-          <select
-            id="cardRare"
+        <div className="filters">
+          <Input
+            type="text"
+            text="Filtrar por nome:"
+            name="nameFilter"
+            value={ filters.nameFilter }
+            onChange={ this.onFilterChange }
+            dataTestid="name-filter"
+            disabled={ filters.trunfoFilter }
+          />
+          <Select
+            text="Filtrar por raridade:"
             name="rareFilter"
             value={ filters.rareFilter }
             onChange={ this.onFilterChange }
-            data-testid="rare-filter"
+            dataTestid="rare-filter"
             disabled={ filters.trunfoFilter }
-          >
-            { RARITY_OPTIONS.map((option) => (
-              <option key={ option } value={ option }>{option}</option>
-            )) }
-          </select>
-        </label>
-        <Checkbox
-          text="Super Trunfo"
-          name="trunfoFilter"
-          value={ filters.trunfoFilter }
-          onChange={ this.onFilterChange }
-          dataTestid="trunfo-filter"
-        />
+            options={ RARITY_OPTIONS }
+          />
+          <Checkbox
+            text="Super Trunfo"
+            name="trunfoFilter"
+            value={ filters.trunfoFilter }
+            onChange={ this.onFilterChange }
+            dataTestid="trunfo-filter"
+          />
+        </div>
         <hr />
-        <Card
-          cardName={ cardName }
-          cardDescription={ cardDescription }
-          cardAttr1={ cardAttr1 }
-          cardAttr2={ cardAttr2 }
-          cardAttr3={ cardAttr3 }
-          cardImage={ cardImage }
-          cardRare={ cardRare }
-          cardTrunfo={ cardTrunfo }
-        />
         {
           cards.filter((card) => this.filters(card)).map((card) => (
             <div key={ card.cardName }>
@@ -224,8 +218,8 @@ class App extends React.Component {
               <button
                 type="button"
                 data-testid="delete-button"
-                onClick={ () => this.handleClick(
-                  card.cardName, card.cardDescription, card.cardTrunfo,
+                onClick={ () => this.handleDeleteBtn(
+                  card.cardName, card.cardTrunfo,
                 ) }
               >
                 Excluir

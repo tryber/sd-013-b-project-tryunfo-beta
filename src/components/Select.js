@@ -1,40 +1,43 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-class Input extends Component {
+class Select extends Component {
   render() {
-    const { type, text, name, value, onChange, dataTestid, disabled } = this.props;
+    const { text, name, value, onChange, dataTestid, disabled, options } = this.props;
     return (
       <div className="form-input">
         <label htmlFor={ name }>
           {text}
-          <input
-            type={ type }
+          <select
             id={ name }
             name={ name }
             value={ value }
             onChange={ onChange }
             data-testid={ dataTestid }
             disabled={ disabled }
-          />
+          >
+            { options.map((option) => (
+              <option key={ option } value={ option }>{option}</option>
+            )) }
+          </select>
         </label>
       </div>
     );
   }
 }
 
-Input.propTypes = {
-  type: PropTypes.string.isRequired,
+Select.propTypes = {
   text: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
   value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
   onChange: PropTypes.func.isRequired,
   dataTestid: PropTypes.string.isRequired,
   disabled: PropTypes.bool,
+  options: PropTypes.arrayOf(PropTypes.string).isRequired,
 };
 
-Input.defaultProps = {
+Select.defaultProps = {
   disabled: false,
 };
 
-export default Input;
+export default Select;

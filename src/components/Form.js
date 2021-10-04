@@ -3,6 +3,9 @@ import PropTypes from 'prop-types';
 
 import Input from './Input';
 import Checkbox from './Checkbox';
+import Select from './Select';
+
+const RARITY_OPTIONS = ['normal', 'raro', 'muito raro'];
 
 class Form extends Component {
   render() {
@@ -22,7 +25,7 @@ class Form extends Component {
     } = this.props;
 
     return (
-      <form onSubmit={ onSaveButtonClick }>
+      <form className="form" onSubmit={ onSaveButtonClick }>
         <Input
           type="text"
           name="cardName"
@@ -31,16 +34,18 @@ class Form extends Component {
           onChange={ onInputChange }
           dataTestid="name-input"
         />
-        <label htmlFor="cardDescription">
-          description
-          <textarea
-            id="cardDescription"
-            name="cardDescription"
-            value={ cardDescription }
-            onChange={ onInputChange }
-            data-testid="description-input"
-          />
-        </label>
+        <div className="form-input">
+          <label htmlFor="cardDescription">
+            description
+            <textarea
+              id="cardDescription"
+              name="cardDescription"
+              value={ cardDescription }
+              onChange={ onInputChange }
+              data-testid="description-input"
+            />
+          </label>
+        </div>
         <Input
           type="number"
           name="cardAttr1"
@@ -73,20 +78,14 @@ class Form extends Component {
           onChange={ onInputChange }
           dataTestid="image-input"
         />
-        <label htmlFor="cardRare">
-          Raridade
-          <select
-            id="cardRare"
-            name="cardRare"
-            value={ cardRare }
-            onChange={ onInputChange }
-            data-testid="rare-input"
-          >
-            <option value="normal">normal</option>
-            <option value="raro">raro</option>
-            <option value="muito raro">muito raro</option>
-          </select>
-        </label>
+        <Select
+          text="Raridade"
+          name="cardRare"
+          value={ cardRare }
+          onChange={ onInputChange }
+          dataTestid="rare-input"
+          options={ RARITY_OPTIONS }
+        />
         { hasTrunfo ? <div>Você já tem um Super Trunfo em seu baralho</div>
           : (
             <Checkbox

@@ -1,0 +1,61 @@
+h1 {
+  font-size: 2.3em;
+  text-align: center;
+}
+
+.make-card {
+  display: flex;
+}
+
+.form {
+  align-items: flex-start;
+  display: flex;
+  flex-direction: column;
+  margin-right: 50px;
+  text-transform: uppercase;
+  width: 40%;
+}
+
+.form-input {
+  height: 50px;
+  display: flex;
+  align-items: center
+}
+
+.form input, textarea, select, button {
+  margin: 4px 10px;
+}
+
+.preview-card {
+  color: #222;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  text-align: center;
+  width: 50%;
+  text-shadow: 1px 0 0 #fff, -1px 0 0 #fff, 0 1px 0 #fff, 0 -1px 0 #fff, 1px 1px #fff, -1px -1px 0 #fff, 1px -1px 0 #fff, -1px 1px 0 #fff;
+}
+
+.preview-card .name-card {
+  font-size: 2em;
+}
+
+.preview-card .image-card {
+  left: 0;
+  height: 100%;
+  position: absolute;
+  margin: 0;
+  top: 0;
+  width: 100%;
+  z-index: -1;
+}
+
+.preview-card .rare-card {
+  font-size: 1.2em;
+}
+
+.preview-card .trunfo-card {
+  color: #fff;
+  font-size: 1.5em;
+  text-shadow: 2px 0 0 #222, -2px 0 0 #222, 0 2px 0 #222, 0 -2px 0 #222, 1px 1px #222, -1px -1px 0 #222, 1px -1px 0 #222, -1px 1px 0 #222;
+}

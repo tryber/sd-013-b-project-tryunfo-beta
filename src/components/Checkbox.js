@@ -5,17 +5,19 @@ class Checkbox extends Component {
   render() {
     const { text, name, value, onChange, dataTestid } = this.props;
     return (
-      <label htmlFor={ name }>
-        {text}
-        <input
-          type="checkbox"
-          id={ name }
-          name={ name }
-          checked={ value }
-          onChange={ onChange }
-          data-testid={ dataTestid }
-        />
-      </label>
+      <div className="form-input">
+        <label htmlFor={ name }>
+          {text}
+          <input
+            type="checkbox"
+            id={ name }
+            name={ name }
+            checked={ value }
+            onChange={ onChange }
+            data-testid={ dataTestid }
+          />
+        </label>
+      </div>
     );
   }
 }
