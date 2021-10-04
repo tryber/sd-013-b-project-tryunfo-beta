@@ -4,30 +4,6 @@ import Input from '../Input';
 import Select from '../Select';
 
 export default class Form extends Component {
-  // constructor() {
-  //   super();
-  //   this.state = {
-  //     name: '',
-  //     description: '',
-  //     attr1: '',
-  //     attr2: '',
-  //     attr3: '',
-  //     image: '',
-  //     rare: '',
-  //     trunfo: '',
-  //   };
-
-  //   this.handleChange = this.handleChange.bind(this);
-  // }
-
-  // handleChange({ target }) {
-  //   const { name } = target;
-  //   const value = target.type === 'checkbox' ? target.checked : target.value;
-  //   this.setState({
-  //     [name]: value,
-  //   });
-  // }
-
   render() {
     const {
       cardName, cardDescription, cardAttr1, cardAttr2, cardAttr3, cardImage, cardRare,
@@ -41,7 +17,7 @@ export default class Form extends Component {
           type="text"
           value={ cardName }
           onChange={ onInputChange }
-          name="name"
+          name="cardName"
         />
         <label htmlFor="description-input">
           Descrição:
@@ -49,7 +25,7 @@ export default class Form extends Component {
             value={ cardDescription }
             data-testid="description-input"
             onChange={ onInputChange }
-            name="description"
+            name="cardDescription"
           />
         </label>
         <Input
@@ -58,7 +34,7 @@ export default class Form extends Component {
           type="number"
           value={ cardAttr1 }
           onChange={ onInputChange }
-          name="attr1"
+          name="cardAttr1"
         />
         <Input
           dataTestid="attr2-input"
@@ -66,7 +42,7 @@ export default class Form extends Component {
           type="number"
           value={ cardAttr2 }
           onChange={ onInputChange }
-          name="attr2"
+          name="cardAttr2"
         />
         <Input
           dataTestid="attr3-input"
@@ -74,7 +50,7 @@ export default class Form extends Component {
           type="number"
           value={ cardAttr3 }
           onChange={ onInputChange }
-          name="attr3"
+          name="cardAttr3"
         />
         <Input
           dataTestid="image-input"
@@ -82,13 +58,13 @@ export default class Form extends Component {
           type="text"
           value={ cardImage }
           onChange={ onInputChange }
-          name="image"
+          name="cardImage"
         />
         <Select
           dataTestid="rare-input"
           text="Raridade"
           value={ cardRare }
-          name="rare"
+          name="cardRare"
           onChange={ onInputChange }
           options={ ['normal', 'raro', 'muito raro'] }
         />
@@ -97,7 +73,7 @@ export default class Form extends Component {
           <input
             id="trunfo"
             data-testid="trunfo-input"
-            name="trunfo"
+            name="cardTrunfo"
             type="checkbox"
             checked={ cardTrunfo }
             onChange={ onInputChange }
