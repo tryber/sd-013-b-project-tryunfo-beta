@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Form, Card } from './components';
+import { Form, Card, CardList } from './components';
 
 const MAX_ATTRIBUTE_VALUE = 90;
 const MAX_ATTRIBUTE_SUM = 210;
@@ -125,6 +125,7 @@ class App extends React.Component {
           onSaveButtonClick={ this.onSaveButtonClick }
         />
         <Card { ...cardProps } />
+        <CardList cardList={ cardList } />
       </div>
     );
   }
